@@ -4,7 +4,7 @@ import User from "./User";
 
 export default class Header extends React.Component {
     render() {
-        const { user, updateUser, updateSessionId, showModal, toggleModal } = this.props
+        const { user, updateUser, updateSessionId, showModal, toggleModal, session_id } = this.props
         return (
             <nav className="navbar navbar-dark bg-primary">
                 <div className="container">
@@ -21,6 +21,7 @@ export default class Header extends React.Component {
                                 updateSessionId={updateSessionId}
                                 showModal={showModal}
                                 toggleModal={toggleModal}
+
 
                             />
                         )}

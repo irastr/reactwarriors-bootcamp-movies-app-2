@@ -5,3 +5,14 @@ body {
 .invalid-feedback {
   display: block;
 }
+
+ 
+.bookmark-icon {
+  cursor: pointer; 
+  
+}
+
+.heart-icon {
+  cursor: pointer;
+  margin-right: 5px;
+}

@@ -25,9 +25,10 @@ export default class App extends React.Component {
     };
   }
 
-  updateUser = user => {
+  updateUser = (user, session_id) => {
     this.setState({
-      user
+      user,
+      session_id
     });
   };
 
@@ -66,7 +67,7 @@ export default class App extends React.Component {
       fetchApi(
         `${API_URL}/account?api_key=${API_KEY_3}&session_id=${session_id}`
       ).then(user => {
-        this.updateUser(user);
+        this.updateUser(user, session_id);
       });
     }
 
@@ -83,9 +84,9 @@ export default class App extends React.Component {
 
   render() {
     // console.log(this.state.session_id)
-    const session_id = cookies.get('session_id');
+    // const session_id = cookies.get('session_id');
     // console.log(session)
-    const { filters, page, total_pages, user, showModal } = this.state;
+    const { filters, page, total_pages, user, showModal, session_id } = this.state;
     return (
       <div>
         <Header
@@ -94,6 +95,7 @@ export default class App extends React.Component {
           updateSessionId={this.updateSessionId}
           toggleModal={this.toggleModal}
           showModal={showModal}
+
 
         />
         <div className="container">
@@ -120,6 +122,7 @@ export default class App extends React.Component {
                 session_id={session_id}
                 user={user}
                 toggleModal={this.toggleModal}
+                session_id={session_id}
 
               />
             </div>
