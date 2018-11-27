@@ -59,7 +59,7 @@ class Favorite extends React.Component {
 
 
     render() {
-        const { item } = this.props;
+
         const styleFavorite = this.state.favorite ? "fas" : "far";
         const styleWatch = this.state.watchlist ? "fas" : "far"
 

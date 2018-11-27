@@ -91,7 +91,7 @@ export default class MovieList extends React.Component {
   }
 
   render() {
-    console.log(this.props.session_id)
+
     const { movies } = this.state;
     const { user, session_id, toggleModal } = this.props
     return (

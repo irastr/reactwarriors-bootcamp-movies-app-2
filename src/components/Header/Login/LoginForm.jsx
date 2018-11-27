@@ -46,7 +46,7 @@ export default class LoginForm extends React.Component {
             errors[name] = "Not empty";
         }
 
-        if (this.state.password !== this.state.repeatPassword) {
+        if ((this.state.repeatPassword) && (this.state.password !== this.state.repeatPassword)) {
             errors.repeatPassword = "Must be equal password";
         }
 
@@ -103,6 +103,7 @@ export default class LoginForm extends React.Component {
                 this.setState({
                     submitting: false
                 });
+
             })
             .catch(error => {
                 console.log("error", error);
@@ -175,7 +176,7 @@ export default class LoginForm extends React.Component {
                     <div className="form-group">
                         <label htmlFor="repeatPassword">Повторите пароль</label>
                         <input
-                            type="text"
+                            type="password"
                             className="form-control"
                             placeholder="Повторите пароль"
                             name="repeatPassword"
