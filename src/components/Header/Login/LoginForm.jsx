@@ -6,6 +6,7 @@ export default class LoginForm extends React.Component {
     state = {
         username: "",
         password: "",
+        repeatPassword: "",
         errors: {},
         submitting: false
     };
@@ -23,9 +24,11 @@ export default class LoginForm extends React.Component {
         }));
     };
 
-    handleBlur = () => {
-        console.log("on blur");
-        const errors = this.validateFields();
+    handleBlur = (event) => {
+        console.log(event.target.name)
+        // console.log("on blur");
+        const errors = this.validateFields(event.target.name);
+        console.log(errors)
         if (Object.keys(errors).length > 0) {
             this.setState(prevState => ({
                 errors: {
@@ -36,11 +39,15 @@ export default class LoginForm extends React.Component {
         }
     };
 
-    validateFields = () => {
+    validateFields = (name) => {
         const errors = {};
 
-        if (this.state.username === "") {
-            errors.username = "Not empty";
+        if (this.state[name] === "") {
+            errors[name] = "Not empty";
+        }
+
+        if (this.state.password !== this.state.repeatPassword) {
+            errors.repeatPassword = "Must be equal password";
         }
 
         return errors;
@@ -124,7 +131,7 @@ export default class LoginForm extends React.Component {
     };
 
     render() {
-        const { username, password, errors, submitting } = this.state;
+        const { username, password, repeatPassword, errors, submitting } = this.state;
         return (
             <div className="form-login-container">
                 <form className="form-login">
@@ -147,6 +154,7 @@ export default class LoginForm extends React.Component {
                             <div className="invalid-feedback">{errors.username}</div>
                         )}
                     </div>
+
                     <div className="form-group">
                         <label htmlFor="password">Пароль</label>
                         <input
@@ -157,11 +165,29 @@ export default class LoginForm extends React.Component {
                             name="password"
                             value={password}
                             onChange={this.onChange}
+                            onBlur={this.handleBlur}
                         />
                         {errors.password && (
                             <div className="invalid-feedback">{errors.password}</div>
                         )}
                     </div>
+
+                    <div className="form-group">
+                        <label htmlFor="repeatPassword">Повторите пароль</label>
+                        <input
+                            type="text"
+                            className="form-control"
+                            placeholder="Повторите пароль"
+                            name="repeatPassword"
+                            value={repeatPassword}
+                            onChange={this.onChange}
+                            onBlur={this.handleBlur}
+                        />
+                        {errors.repeatPassword && (
+                            <div className="invalid-feedback">{errors.repeatPassword}</div>
+                        )}
+                    </div>
+
                     <button
                         type="submit"
                         className="btn btn-lg btn-primary btn-block"
