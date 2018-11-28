@@ -1,8 +1,9 @@
 import React from "react";
 import { API_URL, API_KEY_3, fetchApi } from "../../../api/api";
+import { AppContext } from "../../App"
 
 
-export default class LoginForm extends React.Component {
+class LoginForm extends React.Component {
     state = {
         username: "",
         password: "",
@@ -25,10 +26,10 @@ export default class LoginForm extends React.Component {
     };
 
     handleBlur = (event) => {
-        console.log(event.target.name)
+        // console.log(event.target.name)
         // console.log("on blur");
         const errors = this.validateFields(event.target.name);
-        console.log(errors)
+        // console.log(errors)
         if (Object.keys(errors).length > 0) {
             this.setState(prevState => ({
                 errors: {
@@ -205,3 +206,18 @@ export default class LoginForm extends React.Component {
         );
     }
 }
+
+const LoginFormContainer = (props) => {
+    console.log("props", props)
+    return (
+        <AppContext.Consumer>
+            {context =>
+                <LoginForm updateUser={context.updateUser}  {...props} />}
+        </AppContext.Consumer>
+
+    );
+};
+
+LoginFormContainer.displayName = "LoginFormContainer"
+
+export default LoginFormContainer;

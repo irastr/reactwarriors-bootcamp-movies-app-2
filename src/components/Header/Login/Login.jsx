@@ -179,19 +179,22 @@ export default class Login extends React.Component {
     //     });
     // };
     render() {
+        const { showModal, toggleModal, updateSessionId } = this.props
         return (
             <div>
                 <button
                     className="btn btn-success"
                     type="button"
                     // onClick={this.sendPromises}
-                    onClick={this.props.toggleModal}
+                    onClick={toggleModal}
                 >
                     Login
         </button>
-                <Modal isOpen={this.props.showModal} toggle={this.props.toggleModal} >
+                <Modal isOpen={showModal} toggle={toggleModal} >
                     <ModalBody>
-                        <LoginForm updateUser={this.props.updateUser} updateSessionId={this.props.updateSessionId} />
+                        <LoginForm
+                            updateSessionId={updateSessionId}
+                        />
                     </ModalBody>
                 </Modal>
             </div >
