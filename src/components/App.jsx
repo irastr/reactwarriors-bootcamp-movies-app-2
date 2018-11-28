@@ -5,6 +5,16 @@ import Header from "./Header/Header";
 import { API_URL, API_KEY_3, fetchApi } from "../api/api";
 import Cookies from "universal-cookie";
 
+import { library } from "@fortawesome/fontawesome-svg-core";
+import { faBookmark, faHeart } from "@fortawesome/free-solid-svg-icons";
+import {
+  faBookmark as bookmarkRegular,
+  faHeart as heartRegular
+} from "@fortawesome/free-regular-svg-icons";
+
+library.add(faBookmark, faHeart, bookmarkRegular, heartRegular);
+
+
 const cookies = new Cookies();
 
 export const AppContext = React.createContext()
@@ -74,13 +84,10 @@ export default class App extends React.Component {
         `${API_URL}/account?api_key=${API_KEY_3}&session_id=${session_id}`
       ).then(user => {
         this.updateUser(user);
+        this.updateSessionId(session_id)
       });
     }
 
-
-    this.setState({
-      session_id
-    })
 
   }
 
