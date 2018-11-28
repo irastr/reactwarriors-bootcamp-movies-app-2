@@ -1,6 +1,6 @@
 import React from "react";
 import Filters from "./Filters/Filters";
-import MoviesList from "./Movies/MoviesList";
+import MoviesContainer from "./Movies/MoviesContainer";
 import Header from "./Header/Header";
 import { API_URL, API_KEY_3, fetchApi } from "../api/api";
 import Cookies from "universal-cookie";
@@ -65,10 +65,6 @@ export default class App extends React.Component {
   componentDidMount() {
     const session_id = cookies.get("session_id");
 
-    this.setState({
-      session_id
-    })
-
     if (session_id) {
       fetchApi(
         `${API_URL}/account?api_key=${API_KEY_3}&session_id=${session_id}`
@@ -78,6 +74,9 @@ export default class App extends React.Component {
     }
 
 
+    this.setState({
+      session_id
+    })
 
   }
 
@@ -120,15 +119,13 @@ export default class App extends React.Component {
               </div>
             </div>
             <div className="col-8">
-              <MoviesList
+              <MoviesContainer
                 filters={filters}
                 page={page}
                 onChangePagination={this.onChangePagination}
                 session_id={session_id}
                 user={user}
                 toggleModal={this.toggleModal}
-
-
               />
             </div>
           </div>
