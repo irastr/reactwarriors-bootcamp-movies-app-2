@@ -194,6 +194,7 @@ export default class Login extends React.Component {
                     <ModalBody>
                         <LoginForm
                             updateSessionId={updateSessionId}
+
                         />
                     </ModalBody>
                 </Modal>

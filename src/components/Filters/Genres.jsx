@@ -1,6 +1,7 @@
 import React from "react";
 import PropTypes from "prop-types"
-// import { API_KEY_3, API_URL } from "../../api/api";
+import GenresHOC from "./GenresHOC"
+
 
 
 const Genres = ({ genresList, with_genres, resetGenres, onChange }) => (
@@ -38,7 +39,7 @@ const Genres = ({ genresList, with_genres, resetGenres, onChange }) => (
 
 
 Genres.propTypes = {
-    // movies: PropTypes.array.isRequired
+
     genresList: PropTypes.array.isRequired,
     with_genres: PropTypes.array.isRequired,
     resetGenres: PropTypes.func.isRequired,
@@ -46,7 +47,7 @@ Genres.propTypes = {
 
 }
 
-export default Genres;
+export default GenresHOC(Genres);
 
 
 
