@@ -97,6 +97,15 @@ export default class App extends React.Component {
     }));
   }
 
+  onLogOut = () => {
+    this.setState({
+      user: null,
+      session_id: null
+    })
+
+    cookies.remove("session_id")
+  }
+
 
 
   render() {
@@ -105,7 +114,9 @@ export default class App extends React.Component {
     return (
       <AppContext.Provider value={{
         user: user,
-        updateUser: this.updateUser
+        updateUser: this.updateUser,
+        session_id: session_id,
+        onLogOut: this.onLogOut
         // updateSessionId: this.updateSessionId
 
 

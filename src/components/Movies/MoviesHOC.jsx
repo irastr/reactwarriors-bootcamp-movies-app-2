@@ -91,7 +91,7 @@ export default (Component) => class MoviesHOC extends React.Component {
     render() {
 
         const { movies } = this.state;
-        console.log(Component)
+        // console.log(Component)
         const { user, session_id, toggleModal } = this.props
         return (
 
