@@ -5,6 +5,11 @@ import Header from "./Header/Header";
 import { API_URL, API_KEY_3, fetchApi } from "../api/api";
 import Cookies from "universal-cookie";
 
+
+import { Modal, ModalBody } from 'reactstrap';
+import LoginForm from "./Header/Login/LoginForm"
+
+
 import { library } from "@fortawesome/fontawesome-svg-core";
 import { faBookmark, faHeart } from "@fortawesome/free-solid-svg-icons";
 import {
@@ -123,12 +128,22 @@ export default class App extends React.Component {
 
       }}>
         <div>
+          <Modal isOpen={showLoginModal} toggle={this.toggleModal} >
+            <ModalBody>
+              <LoginForm
+                updateSessionId={this.updateSessionId}
+                toggleModal={this.toggleModal}
+
+              />
+            </ModalBody>
+          </Modal>
+
           <Header
             user={user}
             // updateUser={this.updateUser}
-            updateSessionId={this.updateSessionId}
+            // updateSessionId={this.updateSessionId}
             toggleModal={this.toggleModal}
-            showLoginModal={showLoginModal}
+          // showLoginModal={showLoginModal}
 
 
           />

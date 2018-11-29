@@ -1,10 +1,9 @@
 import React from "react";
-import Login from "./Login/Login";
 import User from "./User";
 
 export default class Header extends React.Component {
     render() {
-        const { user, updateSessionId, showLoginModal, toggleModal } = this.props
+        const { user, toggleModal } = this.props
         return (
             <nav className="navbar navbar-dark bg-primary">
                 <div className="container">
@@ -25,7 +24,7 @@ export default class Header extends React.Component {
 
 
                     }
-                    {showLoginModal ? (
+                    {/* {showLoginModal ? (
                         <Login
 
                             updateSessionId={updateSessionId}
@@ -34,7 +33,7 @@ export default class Header extends React.Component {
 
 
                         />
-                    ) : null}
+                    ) : null} */}
 
                 </div>
             </nav>

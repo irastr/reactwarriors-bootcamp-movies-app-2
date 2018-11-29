@@ -209,7 +209,7 @@ class LoginForm extends React.Component {
 }
 
 const LoginFormContainer = (props) => {
-    console.log("props", props)
+    // console.log("props", props)
     return (
         <AppContext.Consumer>
             {context =>
