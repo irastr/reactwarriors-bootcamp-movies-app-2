@@ -4,7 +4,7 @@ import User from "./User";
 
 export default class Header extends React.Component {
     render() {
-        const { user, updateSessionId, showModal, toggleModal } = this.props
+        const { user, updateSessionId, showLoginModal, toggleModal } = this.props
         return (
             <nav className="navbar navbar-dark bg-primary">
                 <div className="container">
@@ -13,34 +13,29 @@ export default class Header extends React.Component {
                             <a className="nav-link">Home</a>
                         </li>
                     </ul>
-                    {user ? <User /> : null
+                    {user ? <User /> :
+
+                        (<button
+                            className="btn btn-success"
+                            type="button"
+                            onClick={toggleModal}
+                        >
+                            Login
+                        </button>)
 
 
                     }
-                    {showModal ? (
+                    {showLoginModal ? (
                         <Login
-                            // updateUser={updateUser}
+
                             updateSessionId={updateSessionId}
-                            showModal={showModal}
+                            showLoginModal={showLoginModal}
                             toggleModal={toggleModal}
 
 
                         />
                     ) : null}
-                    {/* <Login updateUser={this.props.updateUser} /> */}
-                    {/* {user ? (
-                        // <User user={user} />
-                        <User />
-                    ) : (
-                            <Login
-                                // updateUser={updateUser}
-                                updateSessionId={updateSessionId}
-                                showModal={showModal}
-                                toggleModal={toggleModal}
 
-
-                            />
-                        )} */}
                 </div>
             </nav>
         );

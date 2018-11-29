@@ -35,7 +35,7 @@ export default class App extends React.Component {
       },
       page: 1,
       total_pages: "",
-      showModal: false
+      showLoginModal: false
     };
   }
 
@@ -93,15 +93,15 @@ export default class App extends React.Component {
 
   toggleModal = () => {
     this.setState(prevState => ({
-      showModal: !prevState.showModal
+      showLoginModal: !prevState.showLoginModal
     }));
   }
 
   onLogOut = () => {
     this.setState({
       user: null,
-      session_id: null,
-      // showModal: false
+      session_id: null
+      // showLoginModal: false
 
     })
     cookies.remove("session_id")
@@ -111,7 +111,7 @@ export default class App extends React.Component {
 
   render() {
 
-    const { filters, page, total_pages, user, showModal, session_id } = this.state;
+    const { filters, page, total_pages, user, showLoginModal, session_id } = this.state;
     return (
       <AppContext.Provider value={{
         user: user,
@@ -128,7 +128,7 @@ export default class App extends React.Component {
             // updateUser={this.updateUser}
             updateSessionId={this.updateSessionId}
             toggleModal={this.toggleModal}
-            showModal={showModal}
+            showLoginModal={showLoginModal}
 
 
           />

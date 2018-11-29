@@ -5,9 +5,9 @@ import { AppContext } from "../../App"
 
 class LoginForm extends React.Component {
     state = {
-        username: "",
-        password: "",
-        repeatPassword: "",
+        username: "irastr",
+        password: "str14795",
+        repeatPassword: "str14795",
         errors: {},
         submitting: false
     };
@@ -104,6 +104,7 @@ class LoginForm extends React.Component {
                 this.setState({
                     submitting: false
                 });
+                this.props.toggleModal()
 
             })
             .catch(error => {

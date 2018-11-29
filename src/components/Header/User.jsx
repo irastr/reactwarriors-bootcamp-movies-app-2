@@ -24,9 +24,7 @@ class User extends React.Component {
         });
     }
 
-    logOut = () => () => {
-
-
+    logOut = () => {
         const { session_id, onLogOut } = this.props;
 
         fetchApi(
@@ -40,15 +38,14 @@ class User extends React.Component {
                 },
                 body: JSON.stringify(
                     {
-
                         "session_id": session_id
-
                     }
                 )
             }
 
         ).then(data => {
             console.log(data)
+
             onLogOut()
         })
 

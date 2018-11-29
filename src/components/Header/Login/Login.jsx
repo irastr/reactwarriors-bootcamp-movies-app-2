@@ -10,7 +10,7 @@ export default class Login extends React.Component {
 
 
     // state = {
-    //     showModal: false
+    //     showLoginModal: false
     // };
 
 
@@ -18,7 +18,7 @@ export default class Login extends React.Component {
 
     // toggleModal = () => {
     //     this.setState(prevState => ({
-    //         showModal: !prevState.showModal
+    //         showLoginModal: !prevState.showLoginModal
     //     }));
     // }
 
@@ -179,26 +179,18 @@ export default class Login extends React.Component {
     //     });
     // };
     render() {
-        const { showModal, toggleModal, updateSessionId } = this.props
+        const { showLoginModal, toggleModal, updateSessionId } = this.props
         return (
-            <div>
-                <button
-                    className="btn btn-success"
-                    type="button"
-                    // onClick={this.sendPromises}
-                    onClick={toggleModal}
-                >
-                    Login
-        </button>
-                <Modal isOpen={showModal} toggle={toggleModal} >
-                    <ModalBody>
-                        <LoginForm
-                            updateSessionId={updateSessionId}
+            <Modal isOpen={showLoginModal} toggle={toggleModal} >
+                <ModalBody>
+                    <LoginForm
+                        updateSessionId={updateSessionId}
+                        toggleModal={toggleModal}
 
-                        />
-                    </ModalBody>
-                </Modal>
-            </div >
+                    />
+                </ModalBody>
+            </Modal>
+
         );
     }
 }
