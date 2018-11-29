@@ -13,8 +13,22 @@ export default class Header extends React.Component {
                             <a className="nav-link">Home</a>
                         </li>
                     </ul>
+                    {user ? <User /> : null
+
+
+                    }
+                    {showModal ? (
+                        <Login
+                            // updateUser={updateUser}
+                            updateSessionId={updateSessionId}
+                            showModal={showModal}
+                            toggleModal={toggleModal}
+
+
+                        />
+                    ) : null}
                     {/* <Login updateUser={this.props.updateUser} /> */}
-                    {user ? (
+                    {/* {user ? (
                         // <User user={user} />
                         <User />
                     ) : (
@@ -26,7 +40,7 @@ export default class Header extends React.Component {
 
 
                             />
-                        )}
+                        )} */}
                 </div>
             </nav>
         );

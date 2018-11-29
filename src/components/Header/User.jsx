@@ -24,7 +24,7 @@ class User extends React.Component {
         });
     }
 
-    logOut = () => {
+    logOut = () => () => {
 
 
         const { session_id, onLogOut } = this.props;

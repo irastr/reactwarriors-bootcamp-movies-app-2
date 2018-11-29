@@ -100,9 +100,10 @@ export default class App extends React.Component {
   onLogOut = () => {
     this.setState({
       user: null,
-      session_id: null
-    })
+      session_id: null,
+      // showModal: false
 
+    })
     cookies.remove("session_id")
   }
 
