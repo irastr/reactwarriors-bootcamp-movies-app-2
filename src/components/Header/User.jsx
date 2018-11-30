@@ -1,6 +1,6 @@
 
 import React from "react";
-import { API_URL, API_KEY_3, fetchApi } from "../../api/api";
+import CallApi from "../../api/api";
 import AppContextHOC from "../HOC/AppContextHOC"
 
 import {
@@ -27,27 +27,33 @@ class User extends React.Component {
     logOut = () => {
         const { session_id, onLogOut } = this.props;
 
-        fetchApi(
-            `${API_URL}/authentication/session?api_key=${API_KEY_3}`
-
-            , {
-                method: "DELETE",
-                mode: "cors",
-                headers: {
-                    "Content-type": "application/json;charset=utf-8"
-                },
-                body: JSON.stringify(
-                    {
-                        "session_id": session_id
-                    }
-                )
+        return CallApi.delete("/authentication/session", {
+            body: {
+                "session_id": session_id
             }
-
-        ).then(data => {
-            console.log(data)
-
-            onLogOut()
         })
+            // fetchApi(
+            //     `${API_URL}/authentication/session?api_key=${API_KEY_3}`
+
+            //     , {
+            //         method: "DELETE",
+            //         mode: "cors",
+            //         headers: {
+            //             "Content-type": "application/json;charset=utf-8"
+            //         },
+            //         body: JSON.stringify(
+            //             {
+            //                 "session_id": session_id
+            //             }
+            //         )
+            //     }
+
+
+            .then(data => {
+                console.log(data)
+
+                onLogOut()
+            })
 
     }
 

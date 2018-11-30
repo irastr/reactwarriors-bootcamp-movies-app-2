@@ -1,8 +1,8 @@
 import React from "react";
 // import MoviesList from "./MoviesList";
-import { API_URL, API_KEY_3 } from "../../api/api";
+import CallApi, { API_KEY_3 } from "../../api/api";
 import _ from "lodash";
-import queryString from "query-string";
+
 
 export default (Component) => class MoviesHOC extends React.Component {
     constructor() {
@@ -27,13 +27,15 @@ export default (Component) => class MoviesHOC extends React.Component {
             queryStringParams.with_genres = with_genres.join(",");
 
 
-        const link = `${API_URL}/discover/movie?${queryString.stringify(
-            queryStringParams
-        )}`;
-        fetch(link)
-            .then(response => {
-                return response.json();
-            })
+        // const link = `${API_URL}/discover/movie?${queryString.stringify(
+        //     queryStringParams
+        // )}`;
+        // fetch(link)
+
+        CallApi.get("/discover/movie", {
+            params: queryStringParams
+        })
+
             .then(data => {
                 this.props.onChangePagination({
                     page: data.page,

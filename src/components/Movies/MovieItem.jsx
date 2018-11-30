@@ -1,5 +1,4 @@
 import React from "react";
-
 import Favorite from "./Favorite";
 import WatchList from "./WatchList"
 
