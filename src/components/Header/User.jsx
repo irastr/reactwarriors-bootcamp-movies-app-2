@@ -2,6 +2,7 @@
 import React from "react";
 import { AppContext } from "../App"
 import { API_URL, API_KEY_3, fetchApi } from "../../api/api";
+import AppContextHOC from "../HOC/AppContextHOC"
 
 import {
 
@@ -89,16 +90,16 @@ class User extends React.Component {
 
 
 
-const UserContainer = () => {
-    return (
-        <AppContext.Consumer>
-            {(context) => {
-                return <User user={context.user} session_id={context.session_id} onLogOut={context.onLogOut} />
-            }}
-        </AppContext.Consumer>
-    );
-}
+// const UserContainer = () => {
+//     return (
+//         <AppContext.Consumer>
+//             {(context) => {
+//                 return <User user={context.user} session_id={context.session_id} onLogOut={context.onLogOut} />
+//             }}
+//         </AppContext.Consumer>
+//     );
+// }
 
-UserContainer.displayName = "UserContainer"
+// UserContainer.displayName = "UserContainer"
 
-export default UserContainer;
+export default AppContextHOC(User);

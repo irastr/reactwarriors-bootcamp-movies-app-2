@@ -1,8 +1,16 @@
 import React from "react";
 import { API_URL, API_KEY_3, fetchApi } from "../../api/api";
+import PropTypes from "prop-types"
 
 
 export default (Component, type) => class AddMovieHOC extends React.Component {
+
+    static propTypes = {
+        // name: PropTypes.string.isRequired,
+        // onChange: PropTypes.func.isRequired
+        //  session_id, toggleModal, item, user
+    };
+
     displayName: "AddMovieHOC";
 
     state = {
@@ -57,10 +65,7 @@ export default (Component, type) => class AddMovieHOC extends React.Component {
     }
 };
 
-// AddMovieHOC.propTypes = {
-//     // movies: PropTypes.array.isRequired
-//     //  session_id, toggleModal, item, user
-// }
+
 
 
 
