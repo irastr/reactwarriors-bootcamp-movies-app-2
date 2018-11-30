@@ -1,6 +1,6 @@
 import React from "react";
 import { API_KEY_3, API_URL } from "../../api/api";
-// import Genres from "./Genres"
+
 
 
 export default (Component) => class GenresHOC extends React.Component {
@@ -51,32 +51,7 @@ export default (Component) => class GenresHOC extends React.Component {
         const { genresList } = this.state;
         const { with_genres } = this.props;
         return (
-            //     <React.Fragment>
-            //         <div>
-            //             <button
-            //                 type="button"
-            //                 className="btn btn-outline-dark mb-2"
-            //                 onClick={this.resetGenres}
-            //             >
-            //                 Показать все жанры
-            //   </button>
-            //         </div>
-            //         {genresList.map(genre => (
-            //             <div key={genre.id} className="form-check">
-            //                 <input
-            //                     className="form-check-input"
-            //                     type="checkbox"
-            //                     value={genre.id}
-            //                     id={`genre${genre.id}`}
-            //                     onChange={this.onChange}
-            //                     checked={with_genres.includes(String(genre.id))}
-            //                 />
-            //                 <label className="form-check-label" htmlFor={`genre${genre.id}`}>
-            //                     {genre.name}
-            //                 </label>
-            //             </div>
-            //         ))}
-            //     </React.Fragment>
+
             <Component
                 genresList={genresList}
                 with_genres={with_genres}
@@ -87,4 +62,3 @@ export default (Component) => class GenresHOC extends React.Component {
     }
 }
 
-// export default GenresContainer;

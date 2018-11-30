@@ -1,6 +1,5 @@
 
 import React from "react";
-import { AppContext } from "../App"
 import { API_URL, API_KEY_3, fetchApi } from "../../api/api";
 import AppContextHOC from "../HOC/AppContextHOC"
 
@@ -30,7 +29,7 @@ class User extends React.Component {
 
         fetchApi(
             `${API_URL}/authentication/session?api_key=${API_KEY_3}`
-            // `${API_URL}/account/{${user.id}}/${name}?api_key=${API_KEY_3}&session_id=${session_id}`
+
             , {
                 method: "DELETE",
                 mode: "cors",
@@ -70,7 +69,6 @@ class User extends React.Component {
                                 }.jpg?s=64"`}
 
 
-
                         />
                     </DropdownToggle>
 
@@ -89,17 +87,5 @@ class User extends React.Component {
 }
 
 
-
-// const UserContainer = () => {
-//     return (
-//         <AppContext.Consumer>
-//             {(context) => {
-//                 return <User user={context.user} session_id={context.session_id} onLogOut={context.onLogOut} />
-//             }}
-//         </AppContext.Consumer>
-//     );
-// }
-
-// UserContainer.displayName = "UserContainer"
 
 export default AppContextHOC(User);

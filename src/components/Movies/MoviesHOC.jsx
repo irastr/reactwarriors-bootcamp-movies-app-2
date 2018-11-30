@@ -26,15 +26,7 @@ export default (Component) => class MoviesHOC extends React.Component {
         if (with_genres.length > 0)
             queryStringParams.with_genres = with_genres.join(",");
 
-        // const getQueryStringParams = object => {
-        //   let string = "";
-        //   for (let key in object) {
-        //     string = string + `&${key}=${object[key]}`;
-        //   }
-        //   return "?" + string.substring(1, string.length);
-        // };
 
-        // getQueryStringParams(queryString);
         const link = `${API_URL}/discover/movie?${queryString.stringify(
             queryStringParams
         )}`;
@@ -57,27 +49,12 @@ export default (Component) => class MoviesHOC extends React.Component {
         this.getMovies(this.props.filters, this.props.page);
     }
 
-    // componentWillReceiveProps(nextProps) {
-    //   if (nextProps.activeTab !== this.props.activeTab) {
-    //     this.setState({
-    //       tab: nextProps.activeTab
-    //     });
-    //   }
-    // }
 
-    // static getDerrivedStateFromProps(props, state) {
-    //   return {
-    //     tab: props.activeTab
-    //   };
-    // }
 
     componentDidUpdate(prevProps) {
         if (
             !_.isEqual(this.props.filters, prevProps.filters)
-            // this.props.filters !== prevProps.filters
-            // this.props.filters.sort_by !== prevProps.filters.sort_by ||
-            // this.props.filters.primary_release_year !==
-            //   prevProps.filters.primary_release_year
+
         ) {
             this.props.onChangePagination({ page: 1 });
             this.getMovies(this.props.filters, 1);
@@ -91,24 +68,11 @@ export default (Component) => class MoviesHOC extends React.Component {
     render() {
 
         const { movies } = this.state;
-        // console.log(Component)
+
         const { user, session_id, toggleModal } = this.props
         return (
 
             <Component movies={movies} user={user} session_id={session_id} toggleModal={toggleModal} />
-
-
-            //     <div className="row">
-            //     {movies.map(movie => {
-            //       return (
-            //         <div key={movie.id} className="col-6 mb-4">
-            //           <MovieItem item={movie} user={user} session_id={session_id} toggleModal={toggleModal} />
-            //         </div>
-            //       );
-            //     })}
-            //   </div>
-
-
 
         );
     }

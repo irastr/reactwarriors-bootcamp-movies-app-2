@@ -1,21 +1,24 @@
 import React from "react";
 import { API_URL, API_KEY_3, fetchApi } from "../../api/api";
-import PropTypes from "prop-types"
+import PropTypes from "prop-types";
 
 
 export default (Component, type) => class AddMovieHOC extends React.Component {
+    // displayName: "AddMovieHOC";
 
     static propTypes = {
-        // name: PropTypes.string.isRequired,
-        // onChange: PropTypes.func.isRequired
-        //  session_id, toggleModal, item, user
+        // movies: PropTypes.array.isRequired
+        session_id: PropTypes.string.isRequired,
+        toggleModal: PropTypes.func.isRequired,
+        item: PropTypes.object.isRequired,
+        user: PropTypes.object.isRequired,
     };
 
-    displayName: "AddMovieHOC";
 
     state = {
         isAdd: false
     };
+
 
     handleIconClick = () => {
 
@@ -64,6 +67,7 @@ export default (Component, type) => class AddMovieHOC extends React.Component {
         );
     }
 };
+
 
 
 

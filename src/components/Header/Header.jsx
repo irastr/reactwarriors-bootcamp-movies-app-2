@@ -24,16 +24,7 @@ export default class Header extends React.Component {
 
 
                     }
-                    {/* {showLoginModal ? (
-                        <Login
 
-                            updateSessionId={updateSessionId}
-                            showLoginModal={showLoginModal}
-                            toggleModal={toggleModal}
-
-
-                        />
-                    ) : null} */}
 
                 </div>
             </nav>
