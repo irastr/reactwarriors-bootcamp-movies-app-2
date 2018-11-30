@@ -5,6 +5,16 @@ import Header from "./Header/Header";
 import { API_URL, API_KEY_3, fetchApi } from "../api/api";
 import Cookies from "universal-cookie";
 
+import { library } from "@fortawesome/fontawesome-svg-core";
+import { faBookmark, faHeart } from "@fortawesome/free-solid-svg-icons";
+import {
+  faBookmark as bookmarkRegular,
+  faHeart as heartRegular
+} from "@fortawesome/free-regular-svg-icons";
+
+library.add(faBookmark, faHeart, bookmarkRegular, heartRegular);
+
+
 const cookies = new Cookies();
 
 export default class App extends React.Component {
@@ -25,14 +35,15 @@ export default class App extends React.Component {
     };
   }
 
-  updateUser = (user, session_id) => {
+  updateUser = (user) => {
     this.setState({
       user,
-      session_id
+
     });
   };
 
   updateSessionId = session_id => {
+
     cookies.set("session_id", session_id, {
       path: "/",
       maxAge: 2592000
@@ -40,7 +51,7 @@ export default class App extends React.Component {
     this.setState({
       session_id
     });
-    // console.log(this.state.session_id)
+
   };
 
   onChangeFilters = event => {
@@ -63,11 +74,17 @@ export default class App extends React.Component {
 
   componentDidMount() {
     const session_id = cookies.get("session_id");
+
+    this.setState({
+      session_id
+    })
+
     if (session_id) {
       fetchApi(
         `${API_URL}/account?api_key=${API_KEY_3}&session_id=${session_id}`
       ).then(user => {
-        this.updateUser(user, session_id);
+        this.updateUser(user);
+        this.updateSessionId(session_id)
       });
     }
 
@@ -83,9 +100,7 @@ export default class App extends React.Component {
 
 
   render() {
-    // console.log(this.state.session_id)
-    // const session_id = cookies.get('session_id');
-    // console.log(session)
+
     const { filters, page, total_pages, user, showModal, session_id } = this.state;
     return (
       <div>
@@ -122,7 +137,7 @@ export default class App extends React.Component {
                 session_id={session_id}
                 user={user}
                 toggleModal={this.toggleModal}
-                session_id={session_id}
+
 
               />
             </div>

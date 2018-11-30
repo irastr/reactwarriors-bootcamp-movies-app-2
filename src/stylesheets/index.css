@@ -16,3 +16,8 @@ body {
   cursor: pointer;
   margin-right: 5px;
 }
+
+.card-img--height {
+  max-height: 161.84px;
+  object-fit: cover;
+}

@@ -4,10 +4,11 @@ import { API_URL, API_KEY_3, fetchApi } from "../../api/api";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 
-class Favorite extends React.Component {
+class WatchList extends React.Component {
 
     state = {
-        favorite: false
+
+        watchlist: false
     }
 
 
@@ -53,18 +54,23 @@ class Favorite extends React.Component {
 
     render() {
 
-        const styleFavorite = this.state.favorite ? "fas" : "far";
+        const styleWatch = this.state.watchlist ? "fas" : "far"
 
         return (
-            <a className="heart-icon"
-                // onClick={this.handleIconClick.bind(null, "favorite")}
-                onClick={this.handleIconClick("favorite")}
+
+
+
+            <a className="bookmark-icon"
+                // onClick={this.handleIconClick.bind(null, "watchlist")}
+                onClick={this.handleIconClick("watchlist")}
             >
-                <FontAwesomeIcon icon={[styleFavorite, "heart"]} />
+                <FontAwesomeIcon icon={[styleWatch, "bookmark"]} />
             </a>
+
         );
     }
 
+
 }
 
-export default Favorite;
+export default WatchList;

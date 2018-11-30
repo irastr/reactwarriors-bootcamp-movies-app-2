@@ -1,5 +1,7 @@
 import React from "react";
 import PropTypes from "prop-types";
+import UISelect from "../UIComponents/UISelect";
+
 
 export default class SortBy extends React.Component {
     static propTypes = {
@@ -31,28 +33,36 @@ export default class SortBy extends React.Component {
     render() {
         const { sort_by, onChangeFilters, options } = this.props;
         return (
-            <div className="form-group">
-                <label htmlFor="sort_by">Сортировать по:</label>
-                <select
-                    id="sort_by"
-                    className="form-control"
-                    name="sort_by"
-                    value={sort_by}
-                    onChange={onChangeFilters}
-                >
-                    {options.map(option => (
-                        <option key={option.value} value={option.value}>
-                            {option.label}
-                        </option>
-                    ))}
-                    {/*
-          <option value="popularity.desc">Популярные по убыванию</option>
-          <option value="popularity.asc">Популярные по возростанию</option>
-          <option value="vote_average.desc">Рейтинг по убыванию</option>
-          <option value="vote_average.asc">Рейтинг по возростанию</option>
-          */}
-                </select>
-            </div>
+            // <div className="form-group">
+            //     <label htmlFor="sort_by">Сортировать по:</label>
+            //     <select
+            //         id="sort_by"
+            //         className="form-control"
+            //         name="sort_by"
+            //         value={sort_by}
+            //         onChange={onChangeFilters}
+            //     >
+            //         {options.map(option => (
+            //             <option key={option.value} value={option.value}>
+            //                 {option.label}
+            //             </option>
+            //         ))}
+
+            //     </select>
+            // </div>
+            <UISelect
+                id="sort_by"
+                name="sort_by"
+                value={sort_by}
+                onChange={onChangeFilters}
+                labelText="Сортировать по:"
+            >
+                {options.map(option => (
+                    <option key={option.value} value={option.value}>
+                        {option.label}
+                    </option>
+                ))}
+            </UISelect>
         );
     }
 }
