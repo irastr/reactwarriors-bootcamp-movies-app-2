@@ -9,7 +9,8 @@ export default (Component) => class MoviesHOC extends React.Component {
         super();
 
         this.state = {
-            movies: []
+            movies: [],
+            preloader: true
         };
     }
 
@@ -42,7 +43,9 @@ export default (Component) => class MoviesHOC extends React.Component {
                     total_pages: data.total_pages
                 });
                 this.setState({
-                    movies: data.results
+                    movies: data.results,
+                    preloader: !this.state.preloader
+
                 });
             });
     };
@@ -69,12 +72,12 @@ export default (Component) => class MoviesHOC extends React.Component {
 
     render() {
 
-        const { movies } = this.state;
+        const { movies, preloader } = this.state;
 
         const { user, session_id, toggleModal } = this.props
         return (
 
-            <Component movies={movies} user={user} session_id={session_id} toggleModal={toggleModal} />
+            <Component movies={movies} user={user} session_id={session_id} toggleModal={toggleModal} preloader={preloader} />
 
         );
     }
