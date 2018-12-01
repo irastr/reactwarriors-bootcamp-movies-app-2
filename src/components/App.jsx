@@ -4,10 +4,11 @@ import MoviesList from "./Movies/MoviesList";
 import Header from "./Header/Header";
 import CallApi from "../api/api";
 import Cookies from "universal-cookie";
+import LoginModal from "./Header/Login/LoginModal"
 
 
-import { Modal, ModalBody } from 'reactstrap';
-import LoginForm from "./Header/Login/LoginForm"
+// import { Modal, ModalBody } from 'reactstrap';
+// import LoginForm from "./Header/Login/LoginForm"
 
 
 import { library } from "@fortawesome/fontawesome-svg-core";
@@ -139,7 +140,14 @@ export default class App extends React.Component {
 
       }}>
         <div>
-          <Modal isOpen={showLoginModal} toggle={this.toggleModal} >
+          <LoginModal
+            showLoginModal={showLoginModal}
+            toggle={this.toggleModal}
+            updateSessionId={this.updateSessionId}
+            toggleModal={this.toggleModal}
+          />
+
+          {/* <Modal isOpen={showLoginModal} toggle={this.toggleModal} >
             <ModalBody>
               <LoginForm
                 updateSessionId={this.updateSessionId}
@@ -147,13 +155,11 @@ export default class App extends React.Component {
 
               />
             </ModalBody>
-          </Modal>
+          </Modal> */}
 
           <Header
             user={user}
             toggleModal={this.toggleModal}
-
-
 
           />
           <div className="container">

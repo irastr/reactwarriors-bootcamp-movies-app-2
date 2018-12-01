@@ -29,7 +29,7 @@ class User extends React.Component {
 
         return CallApi.delete("/authentication/session", {
             body: {
-                "session_id": session_id
+                session_id
             }
         })
             // fetchApi(
