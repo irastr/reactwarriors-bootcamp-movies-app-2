@@ -1,5 +1,4 @@
 import React from "react";
-
 import Favorite from "./Favorite";
 import WatchList from "./WatchList"
 
@@ -27,7 +26,7 @@ export default class MovieItem extends React.Component {
           <div className="d-flex justify-content-between">
 
             <div className="card-text">Рейтинг: {item.vote_average}</div>
-            <div>
+            <div className="d-flex">
               <Favorite
 
                 session_id={session_id}

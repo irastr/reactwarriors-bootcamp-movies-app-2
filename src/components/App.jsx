@@ -2,8 +2,14 @@ import React from "react";
 import Filters from "./Filters/Filters";
 import MoviesList from "./Movies/MoviesList";
 import Header from "./Header/Header";
-import { API_URL, API_KEY_3, fetchApi } from "../api/api";
+import CallApi from "../api/api";
 import Cookies from "universal-cookie";
+import LoginModal from "./Header/Login/LoginModal"
+
+
+// import { Modal, ModalBody } from 'reactstrap';
+// import LoginForm from "./Header/Login/LoginForm"
+
 
 import { library } from "@fortawesome/fontawesome-svg-core";
 import { faBookmark, faHeart } from "@fortawesome/free-solid-svg-icons";
@@ -16,6 +22,10 @@ library.add(faBookmark, faHeart, bookmarkRegular, heartRegular);
 
 
 const cookies = new Cookies();
+
+export const AppContext = React.createContext()
+
+
 
 export default class App extends React.Component {
   constructor() {
@@ -31,7 +41,7 @@ export default class App extends React.Component {
       },
       page: 1,
       total_pages: "",
-      showModal: false
+      showLoginModal: false
     };
   }
 
@@ -75,17 +85,24 @@ export default class App extends React.Component {
   componentDidMount() {
     const session_id = cookies.get("session_id");
 
-    this.setState({
-      session_id
-    })
-
     if (session_id) {
-      fetchApi(
-        `${API_URL}/account?api_key=${API_KEY_3}&session_id=${session_id}`
-      ).then(user => {
-        this.updateUser(user);
-        this.updateSessionId(session_id)
-      });
+
+      CallApi.get("/account", {
+        params: {
+          session_id
+        }
+      })
+
+        // fetchApi(
+        //   `${API_URL}/account?api_key=${API_KEY_3}&session_id=${session_id}`
+        // )
+        .then(user => {
+          this.updateUser(user);
+          this.updateSessionId(session_id)
+        });
+
+
+
     }
 
 
@@ -93,57 +110,88 @@ export default class App extends React.Component {
 
   toggleModal = () => {
     this.setState(prevState => ({
-      showModal: !prevState.showModal
+      showLoginModal: !prevState.showLoginModal
     }));
+  }
+
+  onLogOut = () => {
+    this.setState({
+      user: null,
+      session_id: null
+      // showLoginModal: false
+
+    })
+    cookies.remove("session_id")
   }
 
 
 
   render() {
 
-    const { filters, page, total_pages, user, showModal, session_id } = this.state;
+    const { filters, page, total_pages, user, showLoginModal, session_id } = this.state;
     return (
-      <div>
-        <Header
-          user={user}
-          updateUser={this.updateUser}
-          updateSessionId={this.updateSessionId}
-          toggleModal={this.toggleModal}
-          showModal={showModal}
+      <AppContext.Provider value={{
+        user: user,
+        updateUser: this.updateUser,
+        session_id: session_id,
+        onLogOut: this.onLogOut
+        // updateSessionId: this.updateSessionId
 
 
-        />
-        <div className="container">
-          <div className="row mt-4">
-            <div className="col-4">
-              <div className="card w-100">
-                <div className="card-body">
-                  <h3>Фильтры:</h3>
-                  <Filters
-                    page={page}
-                    total_pages={total_pages}
-                    filters={filters}
-                    onChangeFilters={this.onChangeFilters}
-                    onChangePagination={this.onChangePagination}
-                  />
-                </div>
-              </div>
-            </div>
-            <div className="col-8">
-              <MoviesList
-                filters={filters}
-                page={page}
-                onChangePagination={this.onChangePagination}
-                session_id={session_id}
-                user={user}
+      }}>
+        <div>
+          <LoginModal
+            showLoginModal={showLoginModal}
+            toggle={this.toggleModal}
+            updateSessionId={this.updateSessionId}
+            toggleModal={this.toggleModal}
+          />
+
+          {/* <Modal isOpen={showLoginModal} toggle={this.toggleModal} >
+            <ModalBody>
+              <LoginForm
+                updateSessionId={this.updateSessionId}
                 toggleModal={this.toggleModal}
 
-
               />
+            </ModalBody>
+          </Modal> */}
+
+          <Header
+            user={user}
+            toggleModal={this.toggleModal}
+
+          />
+          <div className="container">
+            <div className="row mt-4">
+              <div className="col-4">
+                <div className="card w-100">
+                  <div className="card-body">
+                    <h3>Фильтры:</h3>
+                    <Filters
+                      page={page}
+                      total_pages={total_pages}
+                      filters={filters}
+                      onChangeFilters={this.onChangeFilters}
+                      onChangePagination={this.onChangePagination}
+                    />
+                  </div>
+                </div>
+              </div>
+              <div className="col-8">
+                <MoviesList
+                  filters={filters}
+                  page={page}
+                  onChangePagination={this.onChangePagination}
+                  session_id={session_id}
+                  user={user}
+                  toggleModal={this.toggleModal}
+                />
+              </div>
             </div>
           </div>
         </div>
-      </div>
+      </AppContext.Provider>
     );
   }
 }

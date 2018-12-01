@@ -8,16 +8,7 @@ export default class UISelect extends React.Component {
         onChange: PropTypes.func.isRequired
     };
 
-    // PureComponent
-    // shouldComponentUpdate(nextProps, nextState) {
-    //   // console.log("this.props", this.props);
-    //   // console.log("nextProps", nextProps);
-    //   if (!_.isEqual(nextProps, this.props)) {
-    //     return true;
-    //   } else {
-    //     return false;
-    //   }
-    // }
+
 
     render() {
         const { id, name, value, onChange, labelText, children } = this.props;
