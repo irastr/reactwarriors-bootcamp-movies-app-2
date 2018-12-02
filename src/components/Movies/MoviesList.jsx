@@ -10,83 +10,42 @@ import PropTypes from "prop-types"
 
 
 const MoviesList = ({ movies, user, session_id, toggleModal, preloader }) => (
-  // <React.Fragment>
-  //   {preloader ? (
-  //     <Loader
-  //       type="Puff"
-  //       color="#00BFFF"
-  //       height="100"
-  //       width="100"
-  //     />) :
-  //     (<div className="row">
 
-
-
-  //       {movies.map(movie => {
-  //         return (
-  //           <div key={movie.id} className="col-6 mb-4">
-  //             <MovieItem item={movie} user={user} session_id={session_id} toggleModal={toggleModal} />
-  //           </div>
-  //         );
-  //       })}
-
-
-  //     </div>)
-  //   }
-  // </React.Fragment>
-
-
-  <div className="row">
+  <div className="row" >
     {preloader ? (
-      <Loader
-        type="Puff"
-        color="#00BFFF"
-        height="100"
-        width="100"
-      />
+
+      <div className="loader">
+        <Loader
+          type="Puff"
+          color="#047AFB"
+          height="100"
+          width="100"
+        />
+      </div>
+
+
     ) :
 
-      (
-        movies.map(movie => {
-          return (
-            <div key={movie.id} className="col-6 mb-4">
-              <MovieItem item={movie} user={user} session_id={session_id} toggleModal={toggleModal} />
-            </div>
-          );
-        })
-      )
+      movies.length > 0 ? (
+
+        (
+          movies.map(movie => {
+            return (
+              <div key={movie.id} className="col-6 mb-4">
+                <MovieItem item={movie} user={user} session_id={session_id} toggleModal={toggleModal} />
+              </div>
+            );
+          })
+        )
+      ) : (<h4 className="movies-empty"> По Вашему запросу не найдено фильмов</h4>)
+
+
     }
 
   </div>
 
 
-  // <div className="row">
-
-  // {preloader ?
-  //   (<Loader
-  //     type="Puff"
-  //     color="#00BFFF"
-  //     height="100"
-  //     width="100"
-  //   />) :
-
-  //   ({
-  //     movies.map(movie => {
-  //       return (
-  //         <div key={movie.id} className="col-6 mb-4">
-  //           <MovieItem item={movie} user={user} session_id={session_id} toggleModal={toggleModal} />
-  //         </div>
-  //       );
-  //     })
-  //   })
-
-  // }
-
-  // </div>
-
-
 )
-
 MoviesList.defaultProps = {
   movies: []
 }

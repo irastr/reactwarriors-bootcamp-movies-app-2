@@ -216,8 +216,8 @@ class LoginForm extends React.Component {
                         onClick={this.onLogin}
                         disabled={submitting}
                     >
-                        Вход
-          </button>
+                        {submitting ? "Выполняется вход..." : "Вход"}
+                    </button>
                     {errors.base && (
                         <div className="invalid-feedback text-center">{errors.base}</div>
                     )}

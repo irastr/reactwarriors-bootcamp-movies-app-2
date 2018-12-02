@@ -8,20 +8,18 @@ import WatchList from "./WatchList"
 export default class MovieItem extends React.Component {
 
 
-
-
   render() {
 
     const { session_id, toggleModal, item, user } = this.props
 
-    // (!item.backdrop_path && !item.poster_path) ? (console.log("NO")) : (null)
+    const path = (item.backdrop_path || item.poster_path) ? (`https://image.tmdb.org/t/p/w500${item.backdrop_path ||
+      item.poster_path} `) : ("https://www.baltimoresportsandlife.com/wp-content/uploads/2016/07/Movies.jpg")
 
     return (
       <div className="card" style={{ width: "100%", minHeight: "300px" }}>
         <img
           className="card-img-top card-img--height"
-          src={`https://image.tmdb.org/t/p/w500${item.backdrop_path ||
-            item.poster_path} `}
+          src={path}
           alt=""
         />
         <div className="card-body">

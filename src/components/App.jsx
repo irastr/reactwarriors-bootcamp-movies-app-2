@@ -147,15 +147,6 @@ export default class App extends React.Component {
             toggleModal={this.toggleModal}
           />
 
-          {/* <Modal isOpen={showLoginModal} toggle={this.toggleModal} >
-            <ModalBody>
-              <LoginForm
-                updateSessionId={this.updateSessionId}
-                toggleModal={this.toggleModal}
-
-              />
-            </ModalBody>
-          </Modal> */}
 
           <Header
             user={user}

@@ -10,11 +10,16 @@ export default (Component) => class MoviesHOC extends React.Component {
 
         this.state = {
             movies: [],
-            preloader: true
+            preloader: false
         };
     }
 
     getMovies = (filters, page) => {
+
+        this.setState({
+            preloader: true
+        });
+
         const { sort_by, primary_release_year, with_genres } = filters;
         const queryStringParams = {
             api_key: API_KEY_3,
@@ -44,13 +49,15 @@ export default (Component) => class MoviesHOC extends React.Component {
                 });
                 this.setState({
                     movies: data.results,
-                    preloader: !this.state.preloader
-
+                    preloader: false
                 });
             });
     };
 
     componentDidMount() {
+        this.setState({
+            preloader: true
+        });
         this.getMovies(this.props.filters, this.props.page);
     }
 
