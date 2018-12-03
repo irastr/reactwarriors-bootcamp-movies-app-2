@@ -36,6 +36,7 @@ export default class MovieItem extends React.Component {
                 item={item}
                 user={user}
 
+
               />
 
               <WatchList

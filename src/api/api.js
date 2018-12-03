@@ -38,9 +38,6 @@ export default class CallApi {
       ...params
     };
 
-
-
-
     // params  = {
     // language: "ru-RU",
     // sort_by: sort_by,

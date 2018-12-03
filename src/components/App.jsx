@@ -5,10 +5,8 @@ import Header from "./Header/Header";
 import CallApi from "../api/api";
 import Cookies from "universal-cookie";
 import LoginModal from "./Header/Login/LoginModal"
+// import _ from "lodash";
 
-
-// import { Modal, ModalBody } from 'reactstrap';
-// import LoginForm from "./Header/Login/LoginForm"
 
 
 import { library } from "@fortawesome/fontawesome-svg-core";
@@ -41,9 +39,13 @@ export default class App extends React.Component {
       },
       page: 1,
       total_pages: "",
-      showLoginModal: false
+      showLoginModal: false,
+      favoriteMovies: [],
+      watchlistMovies: []
     };
   }
+
+
 
   updateUser = (user) => {
     this.setState({
@@ -83,6 +85,7 @@ export default class App extends React.Component {
   };
 
   componentDidMount() {
+
     const session_id = cookies.get("session_id");
 
     if (session_id) {
@@ -93,16 +96,12 @@ export default class App extends React.Component {
         }
       })
 
-        // fetchApi(
-        //   `${API_URL}/account?api_key=${API_KEY_3}&session_id=${session_id}`
-        // )
+
         .then(user => {
           this.updateUser(user);
           this.updateSessionId(session_id)
+          this.getFavoritesWatchlist()
         });
-
-
-
     }
 
 
@@ -117,25 +116,77 @@ export default class App extends React.Component {
   onLogOut = () => {
     this.setState({
       user: null,
-      session_id: null
-      // showLoginModal: false
+      session_id: null,
+      favoriteMovies: [],
+      watchlistMovies: []
+
 
     })
     cookies.remove("session_id")
   }
 
 
+  getFavoritesWatchlist = () => {
+
+    this.getList("favorite", "favoriteMovies");
+    this.getList("watchlist", "watchlistMovies");
+
+  }
+
+  getList = (type, typeArray) => {
+
+    const { user, session_id } = this.state
+
+    CallApi.get(`/account/${user.id}/${type}/movies`, {
+      params: {
+        session_id
+      }
+    })
+      .then(data => {
+
+        this.setState({
+          [typeArray]: [...data.results]
+
+        });
+
+      });
+  }
+
+  addToList = (item, type) => {
+
+    this.setState({
+      [type]: [...this.state[type], item]
+
+    });
+    console.log("addToList")
+  }
+
+  deleteFromList = (item, type) => {
+
+    this.setState({
+      [type]: this.state[type].filter((object) => {
+        return object.id !== item.id
+      })
+    });
+  }
+
+
 
   render() {
 
-    const { filters, page, total_pages, user, showLoginModal, session_id } = this.state;
+    const { filters, page, total_pages, user, showLoginModal, session_id, favoriteMovies, watchlistMovies } = this.state;
+
     return (
       <AppContext.Provider value={{
         user: user,
         updateUser: this.updateUser,
         session_id: session_id,
-        onLogOut: this.onLogOut
-        // updateSessionId: this.updateSessionId
+        onLogOut: this.onLogOut,
+        getFavoritesWatchlist: this.getFavoritesWatchlist,
+        favoriteMovies: favoriteMovies,
+        watchlistMovies: watchlistMovies,
+        addToList: this.addToList,
+        deleteFromList: this.deleteFromList
 
 
       }}>
@@ -146,6 +197,7 @@ export default class App extends React.Component {
             updateSessionId={this.updateSessionId}
             toggleModal={this.toggleModal}
           />
+
 
 
           <Header
@@ -177,6 +229,7 @@ export default class App extends React.Component {
                   session_id={session_id}
                   user={user}
                   toggleModal={this.toggleModal}
+                // favoriteMovies={favoriteMovies}
                 />
               </div>
             </div>

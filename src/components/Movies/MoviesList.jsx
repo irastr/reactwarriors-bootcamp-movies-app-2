@@ -7,6 +7,7 @@ import MoviesHOC from "./MoviesHOC"
 import Loader from 'react-loader-spinner'
 
 import PropTypes from "prop-types"
+import AppContextHOC from "../HOC/AppContextHOC"
 
 
 const MoviesList = ({ movies, user, session_id, toggleModal, preloader }) => (
@@ -54,5 +55,5 @@ MoviesList.propTypes = {
   movies: PropTypes.array.isRequired
 }
 
-export default MoviesHOC(MoviesList);
+export default AppContextHOC(MoviesHOC(MoviesList));
 

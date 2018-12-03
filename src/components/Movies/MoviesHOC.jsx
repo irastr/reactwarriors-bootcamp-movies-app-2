@@ -51,6 +51,9 @@ export default (Component) => class MoviesHOC extends React.Component {
                     movies: data.results,
                     preloader: false
                 });
+
+
+
             });
     };
 
@@ -70,10 +73,13 @@ export default (Component) => class MoviesHOC extends React.Component {
         ) {
             this.props.onChangePagination({ page: 1 });
             this.getMovies(this.props.filters, 1);
+            this.props.getFavoritesWatchlist()
+
         }
 
         if (this.props.page !== prevProps.page) {
             this.getMovies(this.props.filters, this.props.page);
+            this.props.getFavoritesWatchlist()
         }
     }
 
