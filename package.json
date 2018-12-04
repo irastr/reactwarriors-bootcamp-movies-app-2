@@ -14,6 +14,7 @@
     "npm": "^6.4.1",
     "react": "^16.6.3",
     "react-dom": "^16.6.3",
+    "react-loader-spinner": "^2.2.0",
     "react-scripts": "1.1.5",
     "reactstrap": "^6.5.0",
     "ui-select": "^0.19.8",

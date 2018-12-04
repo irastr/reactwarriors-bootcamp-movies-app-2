@@ -6,36 +6,60 @@ import PropTypes from "prop-types";
 export default (Component, type) => class AddMovieHOC extends React.Component {
     // displayName: "AddMovieHOC";
 
-    // static propTypes = {
-    //     session_id: PropTypes.oneOfType([
-    //         PropTypes.string,
-    //         PropTypes.instanceOf(null)
-    //     ]),
-    //     toggleModal: PropTypes.func.isRequired,
-    //     item: PropTypes.object.isRequired,
-    //     user: PropTypes.oneOfType([
-    //         PropTypes.string,
-    //         PropTypes.instanceOf(null)
-    //     ]),
-    // }
+    static propTypes = {
+        // session_id: PropTypes.oneOfType([
+        //     PropTypes.string,
+        //     PropTypes.instanceOf(null)
+        // ]),
+        toggleModal: PropTypes.func.isRequired,
+        item: PropTypes.object.isRequired,
+        // user: PropTypes.oneOfType([
+        //     PropTypes.string,
+        //     PropTypes.instanceOf(null)
+        // ]),
+    }
 
 
     state = {
         isAdd: false
     };
 
+    componentDidUpdate(prevProps) {
 
-    handleIconClick = () => {
+        const isAdd = this.props[type].some((object) => {
+            return object.id === this.props.item.id
+        })
 
-        const { session_id, toggleModal, item, user } = this.props;
+        if (prevProps[type] !== this.props[type]) {
+
+            this.setState({
+                isAdd
+            })
+        }
+    }
+
+
+    handleIconClick = (name) => () => {
+
+        const { session_id, toggleModal, item, user, addToList, deleteFromList } = this.props;
 
         if (session_id) {
             this.setState(
                 prevState => ({
                     isAdd: !prevState.isAdd
                 }),
+
                 () => {
-                    CallApi.post(`/account/${user.id}/${type}`, {
+
+
+                    if (this.state.isAdd) {
+                        addToList(item, type)
+                    } else {
+                        deleteFromList(item, type)
+                    }
+
+
+                    CallApi.post(`/account/${user.id}/${name}`, {
                         params: {
                             session_id,
 
@@ -43,29 +67,13 @@ export default (Component, type) => class AddMovieHOC extends React.Component {
                         body: {
                             media_type: "movie",
                             media_id: item.id,
-                            [type]: this.state.isAdd
+                            [name]: this.state.isAdd
                         }
                     })
-                        // fetchApi(
-                        //     `${API_URL}/account/${
-                        //     user.id
-                        //     }/${type}?api_key=${API_KEY_3}&session_id=${session_id}`,
-                        //     {
-                        //         method: "POST",
-                        //         mode: "cors",
-                        //         headers: {
-                        //             "Content-type": "application/json;charset=utf-8"
-                        //         },
-                        //         body: JSON.stringify({
-                        //             media_type: "movie",
-                        //             media_id: item.id,
-                        //             [type]: this.state.isAdd
-                        //         })
-                        //     }
-                        // )
 
                         .then(data => {
                             console.log(data.status_message);
+
                         });
                 }
             );

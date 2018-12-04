@@ -9,11 +9,17 @@ export default (Component) => class MoviesHOC extends React.Component {
         super();
 
         this.state = {
-            movies: []
+            movies: [],
+            preloader: false
         };
     }
 
     getMovies = (filters, page) => {
+
+        this.setState({
+            preloader: true
+        });
+
         const { sort_by, primary_release_year, with_genres } = filters;
         const queryStringParams = {
             api_key: API_KEY_3,
@@ -42,12 +48,19 @@ export default (Component) => class MoviesHOC extends React.Component {
                     total_pages: data.total_pages
                 });
                 this.setState({
-                    movies: data.results
+                    movies: data.results,
+                    preloader: false
                 });
+
+
+
             });
     };
 
     componentDidMount() {
+        this.setState({
+            preloader: true
+        });
         this.getMovies(this.props.filters, this.props.page);
     }
 
@@ -60,21 +73,24 @@ export default (Component) => class MoviesHOC extends React.Component {
         ) {
             this.props.onChangePagination({ page: 1 });
             this.getMovies(this.props.filters, 1);
+            this.props.getFavoritesWatchlist()
+
         }
 
         if (this.props.page !== prevProps.page) {
             this.getMovies(this.props.filters, this.props.page);
+            this.props.getFavoritesWatchlist()
         }
     }
 
     render() {
 
-        const { movies } = this.state;
+        const { movies, preloader } = this.state;
 
         const { user, session_id, toggleModal } = this.props
         return (
 
-            <Component movies={movies} user={user} session_id={session_id} toggleModal={toggleModal} />
+            <Component movies={movies} user={user} session_id={session_id} toggleModal={toggleModal} preloader={preloader} />
 
         );
     }

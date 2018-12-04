@@ -12,12 +12,14 @@ export default class MovieItem extends React.Component {
 
     const { session_id, toggleModal, item, user } = this.props
 
+    const path = (item.backdrop_path || item.poster_path) ? (`https://image.tmdb.org/t/p/w500${item.backdrop_path ||
+      item.poster_path} `) : ("https://www.baltimoresportsandlife.com/wp-content/uploads/2016/07/Movies.jpg")
+
     return (
-      <div className="card" style={{ width: "100%" }}>
+      <div className="card" style={{ width: "100%", minHeight: "300px" }}>
         <img
           className="card-img-top card-img--height"
-          src={`https://image.tmdb.org/t/p/w500${item.backdrop_path ||
-            item.poster_path}`}
+          src={path}
           alt=""
         />
         <div className="card-body">
@@ -33,6 +35,7 @@ export default class MovieItem extends React.Component {
                 toggleModal={toggleModal}
                 item={item}
                 user={user}
+
 
               />
 
