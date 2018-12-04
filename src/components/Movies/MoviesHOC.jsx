@@ -33,10 +33,6 @@ export default (Component) => class MoviesHOC extends React.Component {
             queryStringParams.with_genres = with_genres.join(",");
 
 
-        // const link = `${API_URL}/discover/movie?${queryString.stringify(
-        //     queryStringParams
-        // )}`;
-        // fetch(link)
 
         CallApi.get("/discover/movie", {
             params: queryStringParams
@@ -52,16 +48,18 @@ export default (Component) => class MoviesHOC extends React.Component {
                     preloader: false
                 });
 
+                if (this.props.user) {
+                    this.props.getFavoritesWatchlist()
+                }
 
+            })
 
-            });
     };
 
     componentDidMount() {
-        this.setState({
-            preloader: true
-        });
+
         this.getMovies(this.props.filters, this.props.page);
+
     }
 
 
@@ -73,13 +71,13 @@ export default (Component) => class MoviesHOC extends React.Component {
         ) {
             this.props.onChangePagination({ page: 1 });
             this.getMovies(this.props.filters, 1);
-            this.props.getFavoritesWatchlist()
+
 
         }
 
         if (this.props.page !== prevProps.page) {
             this.getMovies(this.props.filters, this.props.page);
-            this.props.getFavoritesWatchlist()
+
         }
     }
 

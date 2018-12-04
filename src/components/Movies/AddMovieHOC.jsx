@@ -51,7 +51,6 @@ export default (Component, type) => class AddMovieHOC extends React.Component {
 
                 () => {
 
-
                     if (this.state.isAdd) {
                         addToList(item, type)
                     } else {
@@ -73,7 +72,7 @@ export default (Component, type) => class AddMovieHOC extends React.Component {
 
                         .then(data => {
                             console.log(data.status_message);
-                            getFavoritesWatchlist()
+                            // getFavoritesWatchlist()
 
 
                         });
