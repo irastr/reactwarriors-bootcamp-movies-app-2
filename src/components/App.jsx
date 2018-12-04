@@ -152,23 +152,34 @@ export default class App extends React.Component {
       });
   }
 
-  addToList = (item, type) => {
 
-    this.setState({
-      [type]: [...this.state[type], item]
+  // ComponentDidUpdate(prevProps, prevState) {
+  //   if (prevState.user === null && !_.isEqual(prevState.user, this.state.user)) {
+  //     console.log("PrevStateUser", prevState.user);
+  //     this.getFavoritesWatchlist()
+  //   }
+  //   if (!_.isEqual(prevState.filters, this.state.filters)) {
+  //     this.getFavoritesWatchlist()
+  //   }
+  // }
 
-    });
-    console.log("addToList")
-  }
+  // addToList = (item, type) => {
 
-  deleteFromList = (item, type) => {
+  //   this.setState({
+  //     [type]: [...this.state[type], item]
 
-    this.setState({
-      [type]: this.state[type].filter((object) => {
-        return object.id !== item.id
-      })
-    });
-  }
+  //   });
+  //   console.log("addToList")
+  // }
+
+  // deleteFromList = (item, type) => {
+
+  //   this.setState({
+  //     [type]: this.state[type].filter((object) => {
+  //       return object.id !== item.id
+  //     })
+  //   });
+  // }
 
 
 

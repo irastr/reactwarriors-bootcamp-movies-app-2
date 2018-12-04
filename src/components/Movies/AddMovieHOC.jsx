@@ -41,7 +41,7 @@ export default (Component, type) => class AddMovieHOC extends React.Component {
 
     handleIconClick = (name) => () => {
 
-        const { session_id, toggleModal, item, user, addToList, deleteFromList, getFavoritesWatchlist } = this.props;
+        const { session_id, toggleModal, item, user, getFavoritesWatchlist } = this.props;
 
         if (session_id) {
             this.setState(
@@ -51,11 +51,11 @@ export default (Component, type) => class AddMovieHOC extends React.Component {
 
                 () => {
 
-                    if (this.state.isAdd) {
-                        addToList(item, type)
-                    } else {
-                        deleteFromList(item, type)
-                    }
+                    // if (this.state.isAdd) {
+                    //     addToList(item, type)
+                    // } else {
+                    //     deleteFromList(item, type)
+                    // }
 
 
                     CallApi.post(`/account/${user.id}/${name}`, {
@@ -72,8 +72,7 @@ export default (Component, type) => class AddMovieHOC extends React.Component {
 
                         .then(data => {
                             console.log(data.status_message);
-                            // getFavoritesWatchlist()
-
+                            getFavoritesWatchlist()
 
                         });
                 }
