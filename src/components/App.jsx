@@ -127,10 +127,10 @@ export default class App extends React.Component {
 
 
   getFavoritesWatchlist = () => {
-
-    this.getList("favorite", "favoriteMovies");
-    this.getList("watchlist", "watchlistMovies");
-
+    if (this.state.user) {
+      this.getList("favorite", "favoriteMovies");
+      this.getList("watchlist", "watchlistMovies");
+    }
   }
 
   getList = (type, typeArray) => {
