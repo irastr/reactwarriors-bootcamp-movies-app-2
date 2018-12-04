@@ -41,7 +41,7 @@ export default (Component, type) => class AddMovieHOC extends React.Component {
 
     handleIconClick = (name) => () => {
 
-        const { session_id, toggleModal, item, user, addToList, deleteFromList } = this.props;
+        const { session_id, toggleModal, item, user, addToList, deleteFromList, getFavoritesWatchlist } = this.props;
 
         if (session_id) {
             this.setState(
@@ -73,6 +73,8 @@ export default (Component, type) => class AddMovieHOC extends React.Component {
 
                         .then(data => {
                             console.log(data.status_message);
+                            getFavoritesWatchlist()
+
 
                         });
                 }
