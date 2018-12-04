@@ -106,12 +106,15 @@ class LoginForm extends React.Component {
                 // );
             })
             .then(data => {
-                this.props.updateSessionId(data.session_id);
+                const { updateSessionId } = this.props
+                updateSessionId(data.session_id);
+
                 return CallApi.get("/account", {
                     params: {
                         session_id: data.session_id
                     }
                 })
+
                 // return fetchApi(
                 //     `${API_URL}/account?api_key=${API_KEY_3}&session_id=${
                 //     data.session_id
@@ -119,7 +122,10 @@ class LoginForm extends React.Component {
                 // );
             })
             .then(user => {
-                this.props.updateUser(user);
+                const { updateUser, getFavoritesWatchlist } = this.props
+                updateUser(user);
+                getFavoritesWatchlist();
+
                 this.setState({
                     submitting: false
                 });
@@ -216,8 +222,8 @@ class LoginForm extends React.Component {
                         onClick={this.onLogin}
                         disabled={submitting}
                     >
-                        Вход
-          </button>
+                        {submitting ? "Выполняется вход..." : "Вход"}
+                    </button>
                     {errors.base && (
                         <div className="invalid-feedback text-center">{errors.base}</div>
                     )}
