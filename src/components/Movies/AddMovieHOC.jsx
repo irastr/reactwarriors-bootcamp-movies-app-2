@@ -20,9 +20,19 @@ export default (Component, type) => class AddMovieHOC extends React.Component {
     }
 
 
-    state = {
-        isAdd: false
-    };
+    constructor(props) {
+        super(props);
+        this.state = {
+            // isAdd: this.props[type].some((object) => {
+            //     return object.id === this.props.item.id
+            // }),
+            isAdd: false,
+            access: this.props.access
+        };
+    }
+
+
+
 
     componentDidUpdate(prevProps) {
 
@@ -30,18 +40,25 @@ export default (Component, type) => class AddMovieHOC extends React.Component {
             return object.id === this.props.item.id
         })
 
-        if (prevProps[type] !== this.props[type]) {
 
-            this.setState({
-                isAdd
-            })
+
+        if (prevProps[type] !== this.props[type] || this.props.access) {
+
+            if (isAdd !== this.state.isAdd) {
+                this.setState({
+                    isAdd,
+                    access: false
+                })
+            }
         }
+
     }
+
 
 
     handleIconClick = (name) => () => {
 
-        const { session_id, toggleModal, item, user, getFavoritesWatchlist } = this.props;
+        const { session_id, toggleModal, item, user, getFavoritesWatchlist, addToList, deleteFromList } = this.props;
 
         if (session_id) {
             this.setState(
@@ -51,12 +68,11 @@ export default (Component, type) => class AddMovieHOC extends React.Component {
 
                 () => {
 
-                    // if (this.state.isAdd) {
-                    //     addToList(item, type)
-                    // } else {
-                    //     deleteFromList(item, type)
-                    // }
-
+                    if (this.state.isAdd) {
+                        addToList(item, type)
+                    } else {
+                        deleteFromList(item, type)
+                    }
 
                     CallApi.post(`/account/${user.id}/${name}`, {
                         params: {
@@ -72,8 +88,7 @@ export default (Component, type) => class AddMovieHOC extends React.Component {
 
                         .then(data => {
                             console.log(data.status_message);
-                            getFavoritesWatchlist()
-
+                            // getFavoritesWatchlist()
                         });
                 }
             );

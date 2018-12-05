@@ -1,6 +1,7 @@
 import React from "react";
 import Favorite from "./Favorite";
 import WatchList from "./WatchList"
+import { Link } from "react-router-dom"
 
 
 
@@ -23,24 +24,20 @@ export default class MovieItem extends React.Component {
           alt=""
         />
         <div className="card-body">
-          <h6 className="card-title">{item.title}</h6>
+          <Link className="card-title" to={`/movie/${item.id}`}>{item.title}</Link>
 
           <div className="d-flex justify-content-between">
 
             <div className="card-text">Рейтинг: {item.vote_average}</div>
             <div className="d-flex">
               <Favorite
-
                 session_id={session_id}
                 toggleModal={toggleModal}
                 item={item}
                 user={user}
-
-
               />
 
               <WatchList
-
                 session_id={session_id}
                 toggleModal={toggleModal}
                 item={item}
