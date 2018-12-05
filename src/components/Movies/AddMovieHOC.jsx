@@ -38,7 +38,9 @@ export default (Component, type) => class AddMovieHOC extends React.Component {
             return object.id === this.props.item.id
         })
 
-        if ((prevProps[type] !== this.props[type] || this.props.access) && (isAdd !== this.state.isAdd)) {
+        if (isAdd !== this.state.isAdd || this.props.access && isAdd !== this.state.isAdd) {
+
+            // if ((prevProps[type] !== this.props[type] || this.props.access) && (isAdd !== this.state.isAdd)) {
 
             this.setState({
                 isAdd,
