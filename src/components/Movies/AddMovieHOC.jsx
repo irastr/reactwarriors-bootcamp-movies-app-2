@@ -23,9 +23,7 @@ export default (Component, type) => class AddMovieHOC extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            // isAdd: this.props[type].some((object) => {
-            //     return object.id === this.props.item.id
-            // }),
+
             isAdd: false,
             access: this.props.access
         };
@@ -40,20 +38,16 @@ export default (Component, type) => class AddMovieHOC extends React.Component {
             return object.id === this.props.item.id
         })
 
+        if ((prevProps[type] !== this.props[type] || this.props.access) && (isAdd !== this.state.isAdd)) {
 
+            this.setState({
+                isAdd,
+                access: false
+            })
 
-        if (prevProps[type] !== this.props[type] || this.props.access) {
-
-            if (isAdd !== this.state.isAdd) {
-                this.setState({
-                    isAdd,
-                    access: false
-                })
-            }
         }
 
     }
-
 
 
     handleIconClick = (name) => () => {
