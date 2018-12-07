@@ -31,13 +31,6 @@ export default class Tabs extends React.Component {
             <div className="mt-5">
                 <Nav tabs>
                     <NavItem>
-                        {/* <NavLink
-                            className={classnames({ active: this.state.activeTab === '1' })}
-                            onClick={() => { this.toggle('1'); }}
-
-                        >
-                            MovieDetail
-                        </NavLink> */}
                         <Link to={`/movie/${this.props.id}/movie-detail`}>
                             <NavLink
                                 className={classnames({ active: this.state.activeTab === '1' })}
@@ -75,45 +68,60 @@ export default class Tabs extends React.Component {
                     </NavItem>
                 </Nav>
                 <TabContent activeTab={this.state.activeTab}>
-                    <Switch>
-                        <TabPane tabId="1">
-                            <Row>
-                                <Col sm="12">
-                                    {/* <Route exact path="/movie/:id/movie-detail" component={MovieDetail} /> */}
-
-
+                    {/* <Switch> */}
+                    <TabPane tabId={this.state.activeTab}>
+                        <Row>
+                            <Col sm="12">
+                                <Switch>
                                     <Route
                                         path='/movie/:id/movie-detail'
                                         render={(props) => <MovieDetail {...props} id={this.props.id} item={this.props.item} />}
                                     />
-                                </Col>
-                            </Row>
-                        </TabPane>
-                        <TabPane tabId="2">
-                            <Row>
-                                <Col sm="12">
-                                    {/* <Route exact path="/movie/:id/videos" component={MovieVideos} /> */}
-
                                     <Route
                                         path='/movie/:id/videos'
                                         render={(props) => <MovieVideos {...props} id={this.props.id} />}
                                     />
-                                </Col>
-                            </Row>
-                        </TabPane>
-                        <TabPane tabId="3">
-                            <Row>
-                                <Col sm="12">
-                                    {/* <Route exact path="/movie/:id/movie-credits" component={MovieCredits} /> */}
                                     <Route
                                         path='/movie/:id/movie-credits'
                                         render={(props) => <MovieCredits {...props} id={this.props.id} />}
                                     />
-                                    {/* <MovieCredits /> */}
-                                </Col>
-                            </Row>
-                        </TabPane>
-                    </Switch>
+                                </Switch>
+                            </Col>
+                        </Row>
+                    </TabPane>
+
+
+                    {/* <TabPane tabId="1">
+                        <Row>
+                            <Col sm="12">
+                                <Route
+                                    path='/movie/:id/movie-detail'
+                                    render={(props) => <MovieDetail {...props} id={this.props.id} item={this.props.item} />}
+                                />
+                            </Col>
+                        </Row>
+                    </TabPane>
+                    <TabPane tabId="2">
+                        <Row>
+                            <Col sm="12">
+                                <Route
+                                    path='/movie/:id/videos'
+                                    render={(props) => <MovieVideos {...props} id={this.props.id} />}
+                                />
+                            </Col>
+                        </Row>
+                    </TabPane>
+                    <TabPane tabId="3">
+                        <Row>
+                            <Col sm="12">
+                                <Route
+                                    path='/movie/:id/movie-credits'
+                                    render={(props) => <MovieCredits {...props} id={this.props.id} />}
+                                />
+                            </Col>
+                        </Row>
+                    </TabPane> */}
+                    {/* </Switch> */}
                 </TabContent>
 
             </div>

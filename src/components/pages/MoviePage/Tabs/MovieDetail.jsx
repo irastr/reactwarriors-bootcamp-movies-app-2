@@ -10,16 +10,13 @@ class MovieDetail extends React.Component {
     render() {
         const { item } = this.props
 
-
-
-
         if (!!item.genres) {
             // item.production_companies.map((item) => {
             // console.log(item.production_companies[0].name)
             // })
-            item.genres.map((item) => {
-                console.log(item.name)
-            })
+            // item.genres.map((item) => {
+            //     console.log(item.name)
+            // })
             // console.log(item.genres)
 
         }
@@ -55,11 +52,11 @@ class MovieDetail extends React.Component {
                     </tr>
                     <tr>
                         <td>Бюджет</td>
-                        <td>{item.budget}</td>
+                        <td>{item.budget} $</td>
                     </tr>
                     <tr>
                         <td>Сборы</td>
-                        <td>{item.revenue}</td>
+                        <td>{item.revenue} $</td>
                     </tr>
                     <tr>
                         <td>Компания</td>

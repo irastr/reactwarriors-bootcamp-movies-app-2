@@ -1,6 +1,6 @@
 import React from 'react';
 import CallApi from '../../../api/api';
-// import { Link } from "react-router-dom";
+import { Link } from "react-router-dom";
 import Favorite from "../../Movies/Favorite";
 import WatchList from "../../Movies/WatchList"
 import AppContextHOC from "../../HOC/AppContextHOC"
@@ -23,7 +23,7 @@ class MoviePage extends React.Component {
             }
         })
             .then(data => {
-                console.log(data)
+                // console.log(data)
                 this.setState({
                     item: { ...data }
                 });
@@ -45,7 +45,7 @@ class MoviePage extends React.Component {
 
                     <div className="col-4 col-md-4">
                         <div className="card" style={{ "width": "100 %" }}>
-                            <img className="card-img-top" src={path} alt="Card cap" />
+                            <img className="card-img-top" src={path} alt="Card image cap" />
                             <div className="card-body">
                                 <div className="d-flex justify-content-center">
                                     <Favorite
