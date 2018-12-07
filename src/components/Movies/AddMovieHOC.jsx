@@ -31,17 +31,14 @@ export default (Component, type) => class AddMovieHOC extends React.Component {
 
 
 
+    //Лишний перебор массива, когда не приходят новые данные 
 
     componentDidUpdate(prevProps) {
-
         const isAdd = this.props[type].some((object) => {
             return object.id === this.props.item.id
         })
-
-        if (isAdd !== this.state.isAdd || this.props.access && isAdd !== this.state.isAdd) {
-
+        if ((isAdd !== this.state.isAdd || this.props.access) && isAdd !== this.state.isAdd) {
             // if ((prevProps[type] !== this.props[type] || this.props.access) && (isAdd !== this.state.isAdd)) {
-
             this.setState({
                 isAdd,
                 access: false
@@ -52,9 +49,26 @@ export default (Component, type) => class AddMovieHOC extends React.Component {
     }
 
 
+    // componentDidUpdate(prevProps) {
+
+    //     const isAdd = this.props[type].some((object) => {
+    //         return object.id === this.props.item.id
+    //     })
+
+    //     // if (isAdd !== this.state.isAdd || this.props.access && isAdd !== this.state.isAdd) {
+    //     if ((prevProps[type] !== this.props[type] || this.props.access) && (isAdd !== this.state.isAdd)) {
+    //         this.setState({
+    //             isAdd,
+    //             access: false
+    //         })
+
+    //     }
+    // }
+
+
     handleIconClick = (name) => () => {
 
-        const { session_id, toggleModal, item, user, getFavoritesWatchlist, addToList, deleteFromList } = this.props;
+        const { session_id, toggleModal, item, user, addToList, deleteFromList } = this.props;
 
         if (session_id) {
             this.setState(
@@ -94,6 +108,7 @@ export default (Component, type) => class AddMovieHOC extends React.Component {
     };
 
     render() {
+        // console.log("AddMovieHOC render")
         return (
             <Component
                 {...this.props}

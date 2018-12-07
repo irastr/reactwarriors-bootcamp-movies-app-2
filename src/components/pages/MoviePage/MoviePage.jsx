@@ -1,9 +1,10 @@
 import React from 'react';
 import CallApi from '../../../api/api';
-import { Link } from "react-router-dom";
+// import { Link } from "react-router-dom";
 import Favorite from "../../Movies/Favorite";
 import WatchList from "../../Movies/WatchList"
 import AppContextHOC from "../../HOC/AppContextHOC"
+import Tabs from "./Tabs/Tabs"
 
 
 
@@ -39,12 +40,12 @@ class MoviePage extends React.Component {
             item.poster_path} `) : ("https://www.baltimoresportsandlife.com/wp-content/uploads/2016/07/Movies.jpg")
         return (
             <div className="container mt-3">
-                <Link to={"/"}>Вернуться назад</Link >
+                {/* <Link to={"/"}>Вернуться назад</Link > */}
                 <div className="row mt-5 ">
 
-                    <div className="col-4">
-                        <div class="card" style={{ "width": "18rem" }}>
-                            <img class="card-img-top" src={path} alt="Card image cap" />
+                    <div className="col-4 col-md-4">
+                        <div className="card" style={{ "width": "100 %" }}>
+                            <img className="card-img-top" src={path} alt="Card cap" />
                             <div className="card-body">
                                 <div className="d-flex justify-content-center">
                                     <Favorite
@@ -69,7 +70,7 @@ class MoviePage extends React.Component {
 
                     </div>
 
-                    <div className="col-8">
+                    <div className="col-8  col-md-7">
                         <h3>{item.original_title}</h3>
                         <div className="d-flex">
                         </div>
@@ -79,6 +80,8 @@ class MoviePage extends React.Component {
 
                     </div>
                 </div>
+
+                <Tabs id={this.props.match.params.id} item={this.state.item} />
 
             </div>);
 

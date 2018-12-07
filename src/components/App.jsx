@@ -7,7 +7,7 @@ import MoviesPage from './pages/MoviesPage/MoviesPage'
 import MoviePage from './pages/MoviePage/MoviePage'
 // import _ from "lodash";
 
-import { BrowserRouter, Route, Link } from 'react-router-dom'
+import { BrowserRouter, Route } from 'react-router-dom'
 
 import { library } from "@fortawesome/fontawesome-svg-core";
 import { faBookmark, faHeart } from "@fortawesome/free-solid-svg-icons";
@@ -74,6 +74,10 @@ export default class App extends React.Component {
     }
   }
 
+  // componentDidUpdate() {
+
+  // }
+
   toggleModal = () => {
     this.setState(prevState => ({
       showLoginModal: !prevState.showLoginModal
@@ -81,13 +85,19 @@ export default class App extends React.Component {
   }
 
   onLogOut = () => {
+    cookies.remove("session_id", {
+      path: "/"
+    })
+    CallApi.delete("/authentication/session", {
+      params: { session_id: this.state.session_id }
+    })
     this.setState({
       user: null,
       session_id: null,
       favoriteMovies: [],
       watchlistMovies: []
     })
-    cookies.remove("session_id")
+
   }
 
 
@@ -158,7 +168,8 @@ export default class App extends React.Component {
           favoriteMovies: favoriteMovies,
           watchlistMovies: watchlistMovies,
           addToList: this.addToList,
-          deleteFromList: this.deleteFromList
+          deleteFromList: this.deleteFromList,
+          toggleModal: this.toggleModal
 
 
         }}>
@@ -175,7 +186,6 @@ export default class App extends React.Component {
               toggleModal={this.toggleModal}
             />
 
-            {/* TOOGLE MODAL прокинуть в / */}
 
             <Route exact path="/" component={MoviesPage} />
             <Route path="/movie/:id"
