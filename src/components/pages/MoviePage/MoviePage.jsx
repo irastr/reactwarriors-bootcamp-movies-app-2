@@ -1,9 +1,9 @@
 import React from 'react';
 import CallApi from '../../../api/api';
 import { Link } from "react-router-dom";
-// import FavoriteMoviePage from "./Icons/FavoriteMoviePage";
+import FavoriteMoviePage from "./Icons/FavoriteMoviePage";
 import WatchListMoviePage from "./Icons/WatchListMoviePage";
-import Favorite from "../../Movies/Favorite";
+// import Favorite from "../../Movies/Favorite";
 import AppContextHOC from "../../HOC/AppContextHOC"
 import Tabs from "./Tabs/Tabs"
 
@@ -44,7 +44,7 @@ class MoviePage extends React.Component {
             item.poster_path} `) : ("https://www.baltimoresportsandlife.com/wp-content/uploads/2016/07/Movies.jpg")
         return (
             <div className="container mt-3 ">
-                {preloader ? (
+                {/* {preloader ? (
                     <div className="loader">
                         <Loader
                             type="Puff"
@@ -54,44 +54,44 @@ class MoviePage extends React.Component {
                         />
                     </div>
 
-                ) : (
-                        <React.Fragment>
-                            <div className="row mt-5 ">
-                                <div className="col-md-4 col-12 ">
-                                    <div className="card" style={{ "width": "100 %" }}>
-                                        <img className="card-img-top" src={path} alt="Card image cap" />
-                                    </div>
-
-                                </div>
-
-                                <div className="col-md-8 col-12 ">
-                                    <h3>{item.original_title}</h3>
-                                    <div className="d-flex ">
-                                        <Favorite
-                                            session_id={session_id}
-                                            toggleModal={toggleModal}
-                                            item={item}
-                                            user={user}
-                                            access={true}
-                                        />
-                                        <WatchListMoviePage
-                                            session_id={session_id}
-                                            toggleModal={toggleModal}
-                                            item={item}
-                                            user={user}
-                                            access={true}
-                                        />
-                                    </div>
-
-
-                                    <h4>Описание фильма:</h4>
-                                    <p>{item.overview}</p>
-
-                                </div>
+                ) : ( */}
+                <React.Fragment>
+                    <div className="row mt-5 ">
+                        <div className="col-md-4 col-12 ">
+                            <div className="card" style={{ "width": "100 %" }}>
+                                <img className="card-img-top" src={path} alt="Card image cap" />
                             </div>
-                            <Tabs id={this.props.match.params.id} item={this.state.item} location={this.props.location.pathname} />
-                        </React.Fragment>
-                    )}
+
+                        </div>
+
+                        <div className="col-md-8 col-12 ">
+                            <h3 className="mb-3">{item.title}</h3>
+                            <div className="d-flex ">
+                                <FavoriteMoviePage
+                                    session_id={session_id}
+                                    toggleModal={toggleModal}
+                                    item={item}
+                                    user={user}
+                                    access={true}
+                                />
+                                <WatchListMoviePage
+                                    session_id={session_id}
+                                    toggleModal={toggleModal}
+                                    item={item}
+                                    user={user}
+                                    access={true}
+                                />
+                            </div>
+
+
+                            <h4 className="mt-4">Описание фильма:</h4>
+                            <p>{item.overview}</p>
+
+                        </div>
+                    </div>
+                    <Tabs id={this.props.match.params.id} item={this.state.item} location={this.props.location.pathname} />
+                </React.Fragment>
+                {/*  )} */}
 
 
             </div>);

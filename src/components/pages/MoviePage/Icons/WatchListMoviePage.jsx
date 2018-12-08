@@ -12,10 +12,11 @@ class WatchList extends React.Component {
         const { onClick, isAdd } = this.props;
 
         return (
-            <div className="heart-icon" onClick={onClick("watchlist")}>
-                hi
-                <FontAwesomeIcon icon={[isAdd ? "fas" : "far", "bookmark"]} />
-            </div>
+            <div className="heart-icon--page icon-bookmark" onClick={onClick("watchlist")}>
+                <div className="icon--page" >
+                    <FontAwesomeIcon icon={[isAdd ? "fas" : "far", "bookmark"]} />
+                </div>
+            </div >
         );
     }
 }

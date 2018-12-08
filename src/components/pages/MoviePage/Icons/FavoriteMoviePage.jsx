@@ -8,9 +8,10 @@ import AppContextHOC from "../../../HOC/AppContextHOC"
 const FavoriteMoviePage = ({ onClick, isAdd }) => {
 
     return (
-        <div className="heart-icon" onClick={onClick("favorite")}>
-            hi
-            <FontAwesomeIcon icon={[isAdd ? "fas" : "far", "heart"]} />
+        <div className="heart-icon--page icon-heart" onClick={onClick("favorite")}>
+            <div className="icon--page" >
+                <FontAwesomeIcon icon={[isAdd ? "fas" : "far", "heart"]} />
+            </div>
         </div>
     );
 }

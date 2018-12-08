@@ -17,6 +17,41 @@ body {
   margin-right: 5px;
 }
 
+
+.heart-icon--page {
+  height: 40px;
+  width: 40px;
+  cursor: pointer;
+  margin-right: 5px;
+  border: 2px solid black;
+  border-radius: 50%;
+  padding: 5px;
+  position: relative;
+  margin-right: 15px;
+}
+
+.icon-heart:hover {
+  background: #D6535D
+}
+
+.icon-bookmark:hover {
+  background:#61C493
+}
+
+
+
+.icon--page {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  -webkit-transform: translate(-50%, -50%);
+  transform: translate(-50%, -50%);
+}
+
+/* .icon--page:hover {
+  color: #D6535D
+} */
+
 .card-img--height {
   max-height: 161.84px;
   object-fit: cover;
