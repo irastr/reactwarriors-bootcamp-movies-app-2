@@ -1,21 +1,25 @@
 import React from 'react';
 import CallApi from '../../../api/api';
 import { Link } from "react-router-dom";
+// import FavoriteMoviePage from "./Icons/FavoriteMoviePage";
+import WatchListMoviePage from "./Icons/WatchListMoviePage";
 import Favorite from "../../Movies/Favorite";
-import WatchList from "../../Movies/WatchList"
 import AppContextHOC from "../../HOC/AppContextHOC"
 import Tabs from "./Tabs/Tabs"
 
-
+import Loader from 'react-loader-spinner'
 
 class MoviePage extends React.Component {
     state = {
-        item: {}
+        item: {},
+        preloader: false
     }
 
     componentDidMount() {
-        // console.log(this.props.match.params.id)
-        // this.props.getFavoritesWatchlist()
+
+        this.setState({
+            preloader: true
+        });
 
         CallApi.get(`/movie/${this.props.match.params.id}`, {
             params: {
@@ -23,9 +27,9 @@ class MoviePage extends React.Component {
             }
         })
             .then(data => {
-                // console.log(data)
                 this.setState({
-                    item: { ...data }
+                    item: data,
+                    preloader: false
                 });
 
             })
@@ -33,55 +37,62 @@ class MoviePage extends React.Component {
     }
 
     render() {
-        // console.log(this.props)
+
         const { session_id, toggleModal, user } = this.props
-        const { item } = this.state
+        const { item, preloader } = this.state
         const path = (item.poster_path) ? (`https://image.tmdb.org/t/p/w500${
             item.poster_path} `) : ("https://www.baltimoresportsandlife.com/wp-content/uploads/2016/07/Movies.jpg")
         return (
-            <div className="container mt-3">
-                {/* <Link to={"/"}>Вернуться назад</Link > */}
-                <div className="row mt-5 ">
+            <div className="container mt-3 ">
+                {preloader ? (
+                    <div className="loader">
+                        <Loader
+                            type="Puff"
+                            color="#047AFB"
+                            height="100"
+                            width="100"
+                        />
+                    </div>
 
-                    <div className="col-4 col-md-4">
-                        <div className="card" style={{ "width": "100 %" }}>
-                            <img className="card-img-top" src={path} alt="Card image cap" />
-                            <div className="card-body">
-                                <div className="d-flex justify-content-center">
-                                    <Favorite
-                                        session_id={session_id}
-                                        toggleModal={toggleModal}
-                                        item={item}
-                                        user={user}
-                                        location={this.props.location.pathname}
-                                        access={true}
-                                    />
-                                    <WatchList
-                                        session_id={session_id}
-                                        toggleModal={toggleModal}
-                                        item={item}
-                                        user={user}
-                                        location={this.props.location.pathname}
-                                        access={true}
-                                    />
+                ) : (
+                        <React.Fragment>
+                            <div className="row mt-5 ">
+                                <div className="col-md-4 col-12 ">
+                                    <div className="card" style={{ "width": "100 %" }}>
+                                        <img className="card-img-top" src={path} alt="Card image cap" />
+                                    </div>
+
+                                </div>
+
+                                <div className="col-md-8 col-12 ">
+                                    <h3>{item.original_title}</h3>
+                                    <div className="d-flex ">
+                                        <Favorite
+                                            session_id={session_id}
+                                            toggleModal={toggleModal}
+                                            item={item}
+                                            user={user}
+                                            access={true}
+                                        />
+                                        <WatchListMoviePage
+                                            session_id={session_id}
+                                            toggleModal={toggleModal}
+                                            item={item}
+                                            user={user}
+                                            access={true}
+                                        />
+                                    </div>
+
+
+                                    <h4>Описание фильма:</h4>
+                                    <p>{item.overview}</p>
+
                                 </div>
                             </div>
-                        </div>
+                            <Tabs id={this.props.match.params.id} item={this.state.item} location={this.props.location.pathname} />
+                        </React.Fragment>
+                    )}
 
-                    </div>
-
-                    <div className="col-8  col-md-7">
-                        <h3>{item.original_title}</h3>
-                        <div className="d-flex">
-                        </div>
-                        <p>{item.tagline}</p>
-                        <h4>Описание фильма:</h4>
-                        <p>{item.overview}</p>
-
-                    </div>
-                </div>
-
-                <Tabs id={this.props.match.params.id} item={this.state.item} />
 
             </div>);
 

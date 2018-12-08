@@ -1,14 +1,17 @@
 import React from 'react';
 import CallApi from '../../../../api/api';
+import Loader from 'react-loader-spinner'
 
 class MovieVideos extends React.Component {
     state = {
-        videos: []
+        videos: [],
+        preloader: false
     }
 
     componentDidMount() {
-        // console.log(this.props.id)
-        // this.props.getFavoritesWatchlist()
+        this.setState({
+            preloader: true
+        });
 
         CallApi.get(`/movie/${this.props.id}/videos`, {
             params: {
@@ -18,9 +21,9 @@ class MovieVideos extends React.Component {
             .then(data => {
                 console.log(data.results)
                 this.setState({
-                    videos: [ ...data.results ]
+                    videos: data.results,
+                    preloader: false
                 });
-
             })
 
     }
@@ -28,32 +31,39 @@ class MovieVideos extends React.Component {
 
     render() {
 
-        const {videos} = this.state
-        // (!!videos && videos.length) >0  ? (""): ("")
-        // console.log(this.props.id)
+        const {videos, preloader} = this.state
+    
         console.log("videos", this.state.videos)
         return (<div className="d-flex justify-content-center flex-wrap">
 
-        {
+        { preloader ? (
+              <div className="loader mt-5">
+              <Loader
+                  type="Puff"
+                  color="#047AFB"
+                  height="100"
+                  width="100"
+              />
+          </div>
+        ) : (
+
             (videos.length) > 0  ? (
                 videos.map((item)=> {
                     return (
-                        // <React.Fragment key={item.key}>
+                        
                         <iframe key={item.key}
-                            width="600" height="315" 
+                            width="550" height="315" 
                             src={`https://www.youtube.com/embed/${item.key}`} 
                             frameBorder="0" allow="accelerometer; 
                             autoplay; encrypted-media; gyroscope;
                             picture-in-picture" 
                             title={item.key}
                             allowFullScreen>
-                            
-                            
                         </iframe>
-                        // </React.Fragment>
+                        
                     )
                 })
-            ): (null)
+            ): (<div className="mt-5">Нет видео</div>) )
         }
 
         </div>);

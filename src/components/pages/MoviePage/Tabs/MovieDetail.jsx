@@ -9,19 +9,12 @@ class MovieDetail extends React.Component {
     }
     render() {
         const { item } = this.props
+        console.log(item)
 
-        if (!!item.genres) {
-            // item.production_companies.map((item) => {
-            // console.log(item.production_companies[0].name)
-            // })
-            // item.genres.map((item) => {
-            //     console.log(item.name)
-            // })
-            // console.log(item.genres)
-
-        }
-
-
+        // const {
+        //     item,
+        //     item: { production_countries = [], production_companies = [], genres = [] }
+        // } = this.props;
 
         return (<div>
             <Table striped>
@@ -37,7 +30,7 @@ class MovieDetail extends React.Component {
                     </tr>
                     <tr>
                         <td>Продолжительность</td>
-                        <td>{item.runtime} мин</td>
+                        <td> {item.runtime ? (`${item.runtime} мин`) : "Нет информации"} </td>
                     </tr>
                     <tr>
                         <td>Язык оригинала</td>
@@ -48,7 +41,8 @@ class MovieDetail extends React.Component {
                         <td>{!!item.production_countries &&
                             item.production_countries.length > 0
                             ? item.production_countries[0].name
-                            : null} </td>
+                            : "Нет информации"} </td>
+
                     </tr>
                     <tr>
                         <td>Бюджет</td>
@@ -66,7 +60,7 @@ class MovieDetail extends React.Component {
                                 ? item.production_companies.map((item) => {
                                     return (<React.Fragment key={`companies${item.id}`}> <span className="badge badge-primary"> {item.name} </span> <br /></React.Fragment>)
                                 })
-                                : null
+                                : "Нет информации"
                         }</td>
                     </tr>
                     <tr>
@@ -77,7 +71,7 @@ class MovieDetail extends React.Component {
                                 ? item.genres.map((item) => {
                                     return (<React.Fragment key={`genres${item.id}`}><span className="badge badge-success"> {item.name} </span> <br /></React.Fragment>)
                                 })
-                                : null
+                                : "Нет информации"
 
                             }
                         </td>

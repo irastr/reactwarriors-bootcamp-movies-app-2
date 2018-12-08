@@ -1,15 +1,18 @@
 import React from 'react';
 import CallApi from '../../../../api/api';
+import Loader from 'react-loader-spinner'
 
 
 class MovieCredits extends React.Component {
     state = {
-        credits: []
+        credits: [],
+        preloader: false
     }
 
     componentDidMount() {
-        // console.log(this.props.id)
-        // this.props.getFavoritesWatchlist()
+        this.setState({
+            preloader: true
+        });
 
         CallApi.get(`/movie/${this.props.id}/credits`, {
             params: {
@@ -19,7 +22,8 @@ class MovieCredits extends React.Component {
             .then(data => {
                 console.log(data.cast)
                 this.setState({
-                    credits: data.cast
+                    credits: data.cast,
+                    preloader: false
                 });
 
             })
@@ -29,23 +33,32 @@ class MovieCredits extends React.Component {
 
     render() {
 
-        const { credits } = this.state
+        const { credits, preloader } = this.state
 
-        // console.log("videos", this.state.videos)
+
         return (<div className="d-flex justify-content-center flex-wrap ">
 
-            {
-                (credits.length) > 0 ? (
-                    credits.map((item) => {
-                        if (item.profile_path) {
-                            return (
-                                <React.Fragment key={item.cast_id} >
-                                    <img src={`https://image.tmdb.org/t/p/w500/${item.profile_path}`} alt="" className="cast-img" />
-                                </React.Fragment>
-                            )
-                        }
-                    })
-                ) : (null)
+            {preloader ? (
+                <div className="loader mt-5">
+                    <Loader
+                        type="Puff"
+                        color="#047AFB"
+                        height="100"
+                        width="100"
+                    />
+                </div>
+            ) : (
+                    (credits.length) > 0 ? (
+                        credits.map((item) => {
+                            if (item.profile_path) {
+                                return (
+                                    <React.Fragment key={item.cast_id} >
+                                        <img src={`https://image.tmdb.org/t/p/w500/${item.profile_path}`} alt="" className="cast-img" />
+                                    </React.Fragment>
+                                )
+                            }
+                        })
+                    ) : (<div className="mt-5">Нет информации</div>))
             }
 
         </div>);
