@@ -23,7 +23,7 @@ body {
   width: 40px;
   cursor: pointer;
   margin-right: 5px;
-  border: 2px solid black;
+  border: 2px solid #FDFDFD;
   border-radius: 50%;
   padding: 5px;
   position: relative;
@@ -32,11 +32,17 @@ body {
 
 .icon-heart:hover {
   background: #D6535D
+  /* background: #FDFDFD */
 }
 
 .icon-bookmark:hover {
   background:#61C493
+  /* background: #FDFDFD */
 }
+
+/* .icon--page:hover {
+  color:#D6535D
+} */
 
 
 
@@ -47,10 +53,6 @@ body {
   -webkit-transform: translate(-50%, -50%);
   transform: translate(-50%, -50%);
 }
-
-/* .icon--page:hover {
-  color: #D6535D
-} */
 
 .card-img--height {
   max-height: 161.84px;
@@ -76,3 +78,11 @@ body {
   height: 182px;
   
 }
+
+/* .moviepage-background:after {
+  content: "";
+  position: absolute;
+  left: 0; right: 0;
+  top: 0; bottom: 0;
+  background: rgba(0,0,0,.5);
+} */

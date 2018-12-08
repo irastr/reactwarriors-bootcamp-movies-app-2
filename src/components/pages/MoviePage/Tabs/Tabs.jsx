@@ -62,6 +62,7 @@ export default class Tabs extends React.Component {
                                 onClick={() => { this.toggle('1'); }}
                                 tag="div"
 
+
                             >
                                 MovieDetail
                             </NavLink>
