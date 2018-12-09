@@ -74,9 +74,7 @@ export default class App extends React.Component {
     }
   }
 
-  // componentDidUpdate() {
 
-  // }
 
   toggleModal = () => {
     this.setState(prevState => ({
@@ -85,18 +83,23 @@ export default class App extends React.Component {
   }
 
   onLogOut = () => {
-    cookies.remove("session_id", {
-      path: "/"
-    })
+
     CallApi.delete("/authentication/session", {
       params: { session_id: this.state.session_id }
     })
-    this.setState({
-      user: null,
-      session_id: null,
-      favoriteMovies: [],
-      watchlistMovies: []
-    })
+      .then(() => {
+        this.setState({
+          user: null,
+          session_id: null,
+          favoriteMovies: [],
+          watchlistMovies: []
+        })
+
+        cookies.remove("session_id", {
+          path: "/"
+        })
+      })
+
 
   }
 
@@ -123,14 +126,11 @@ export default class App extends React.Component {
   }
 
 
-  // ComponentDidUpdate(prevProps, prevState) {
+  // componentDidUpdate(prevProps, prevState) {
   //   if (prevState.user === null && !_.isEqual(prevState.user, this.state.user)) {
-  //     console.log("PrevStateUser", prevState.user);
   //     this.getFavoritesWatchlist()
   //   }
-  //   if (!_.isEqual(prevState.filters, this.state.filters)) {
-  //     this.getFavoritesWatchlist()
-  //   }
+
   // }
 
   addToList = (item, type) => {

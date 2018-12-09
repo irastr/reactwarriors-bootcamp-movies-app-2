@@ -9,7 +9,7 @@ class MovieDetail extends React.Component {
     }
     render() {
         const { item } = this.props
-        console.log(item)
+        // console.log(item)
 
         // const {
         //     item,

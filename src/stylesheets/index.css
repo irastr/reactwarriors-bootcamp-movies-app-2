@@ -86,3 +86,17 @@ body {
   top: 0; bottom: 0;
   background: rgba(0,0,0,.5);
 } */
+
+
+.movie-tab.active {
+ 
+ text-decoration: none;
+ font-weight: bold;
+}
+
+
+.movie-tab:hover {
+  color: #007bff;
+  text-decoration: none;
+  
+}

@@ -37,7 +37,7 @@ export default (Component, type) => class AddMovieHOC extends React.Component {
         const isAdd = this.props[type].some((object) => {
             return object.id === this.props.item.id
         })
-        if ((isAdd !== this.state.isAdd || this.props.access) && isAdd !== this.state.isAdd) {
+        if ((isAdd !== this.state.isAdd && this.props.access) || isAdd !== this.state.isAdd) {
             // if ((prevProps[type] !== this.props[type] || this.props.access) && (isAdd !== this.state.isAdd)) {
             this.setState({
                 isAdd,
@@ -47,6 +47,7 @@ export default (Component, type) => class AddMovieHOC extends React.Component {
         }
 
     }
+
 
 
     // componentDidUpdate(prevProps) {
@@ -68,7 +69,7 @@ export default (Component, type) => class AddMovieHOC extends React.Component {
 
     handleIconClick = (name) => () => {
 
-        const { session_id, toggleModal, item, user, addToList, deleteFromList } = this.props;
+        const { session_id, toggleModal, item, user, addToList, deleteFromList, getFavoritesWatchlist } = this.props;
 
         if (session_id) {
             this.setState(
@@ -98,7 +99,7 @@ export default (Component, type) => class AddMovieHOC extends React.Component {
 
                         .then(data => {
                             console.log(data.status_message);
-                            // getFavoritesWatchlist()
+                            getFavoritesWatchlist()
                         });
                 }
             );
@@ -108,7 +109,7 @@ export default (Component, type) => class AddMovieHOC extends React.Component {
     };
 
     render() {
-        // console.log("AddMovieHOC render")
+        console.log("AddMovieHOC render", this.state.isAdd)
         return (
             <Component
                 {...this.props}

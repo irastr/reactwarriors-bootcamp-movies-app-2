@@ -14,7 +14,7 @@ class MovieCredits extends React.Component {
             preloader: true
         });
 
-        CallApi.get(`/movie/${this.props.id}/credits`, {
+        CallApi.get(`/movie/${this.props.match.params.id}/credits`, {
             params: {
                 language: "ru-RU"
             }

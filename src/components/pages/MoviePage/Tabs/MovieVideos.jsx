@@ -13,7 +13,7 @@ class MovieVideos extends React.Component {
             preloader: true
         });
 
-        CallApi.get(`/movie/${this.props.id}/videos`, {
+        CallApi.get(`/movie/${this.props.match.params.id}/videos`, {
             params: {
                 language: "ru-RU"
             }
