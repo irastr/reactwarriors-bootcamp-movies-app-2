@@ -5,7 +5,7 @@ import Cookies from "universal-cookie";
 import LoginModal from "./Header/Login/LoginModal"
 import MoviesPage from './pages/MoviesPage/MoviesPage'
 import MoviePage from './pages/MoviePage/MoviePage'
-// import _ from "lodash";
+import _ from "lodash";
 
 import { BrowserRouter, Route } from 'react-router-dom'
 
@@ -126,12 +126,12 @@ export default class App extends React.Component {
   }
 
 
-  // componentDidUpdate(prevProps, prevState) {
-  //   if (prevState.user === null && !_.isEqual(prevState.user, this.state.user)) {
-  //     this.getFavoritesWatchlist()
-  //   }
+  componentDidUpdate(prevProps, prevState) {
+    if (prevState.user === null && !_.isEqual(prevState.user, this.state.user)) {
+      this.getFavoritesWatchlist()
+    }
 
-  // }
+  }
 
   addToList = (item, type) => {
 
