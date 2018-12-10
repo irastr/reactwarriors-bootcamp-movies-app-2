@@ -105,7 +105,8 @@ export default class App extends React.Component {
 
 
   getFavoritesWatchlist = () => {
-    if (this.state.user) {
+    // console.log("getFavoritesWatchlist", "call")
+    if (this.state.user && this.state.session_id) {
       this.getList("favorite", "favoriteMovies");
       this.getList("watchlist", "watchlistMovies");
     }
@@ -126,12 +127,12 @@ export default class App extends React.Component {
   }
 
 
-  componentDidUpdate(prevProps, prevState) {
-    if (prevState.user === null && !_.isEqual(prevState.user, this.state.user)) {
-      this.getFavoritesWatchlist()
-    }
+  // componentDidUpdate(prevProps, prevState) {
+  //   if (prevState.user === null && !_.isEqual(prevState.user, this.state.user)) {
+  //     this.getFavoritesWatchlist()
+  //   }
 
-  }
+  // }
 
   addToList = (item, type) => {
 
@@ -139,7 +140,7 @@ export default class App extends React.Component {
       [type]: [...this.state[type], item]
 
     });
-    console.log("addToList")
+    // console.log("addToList")
   }
 
   deleteFromList = (item, type) => {

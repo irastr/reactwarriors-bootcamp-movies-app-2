@@ -53,21 +53,21 @@ class MoviePage extends React.Component {
         return (
             <React.Fragment>
                 {preloader ? (
-
-                    <div className="loader">
-                        <Loader
-                            type="Puff"
-                            color="#047AFB"
-                            height="100"
-                            width="100"
-                        />
+                    <div className="mt-4">
+                        <div className="loader">
+                            <Loader
+                                type="Puff"
+                                color="#047AFB"
+                                height="100"
+                                width="100"
+                            />
+                        </div>
                     </div>
-
 
                 ) : (
                         <React.Fragment>
                             <div className="moviepage-background" style={{
-                                backgroundImage: "url(" + `https://image.tmdb.org/t/p/w500${
+                                backgroundImage: "linear-gradient(0deg,rgba(255,0,150,0.7),rgba(55, 103, 222,0.7)), url(" + `https://image.tmdb.org/t/p/w500${
                                     item.backdrop_path} ` + ")", backgroundPosition: 'center',
                                 backgroundSize: 'cover',
                                 backgroundRepeat: 'no-repeat',

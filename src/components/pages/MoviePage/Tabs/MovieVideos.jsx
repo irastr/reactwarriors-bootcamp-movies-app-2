@@ -46,20 +46,30 @@ class MovieVideos extends React.Component {
               />
           </div>
         ) : (
-
+            
             (videos.length) > 0  ? (
                 videos.map((item)=> {
+                    console.log(item)
                     return (
-                        
-                        <iframe key={item.key}
-                            width="550" height="315" 
+
+
+                        <div class="card" style={{"width": "500px", "height": "415px", "margin":"20px"}}>
+  
+                            <iframe key={item.key}
+                            width="100%" height="100%" 
                             src={`https://www.youtube.com/embed/${item.key}`} 
                             frameBorder="0" allow="accelerometer; 
                             autoplay; encrypted-media; gyroscope;
                             picture-in-picture" 
                             title={item.key}
                             allowFullScreen>
-                        </iframe>
+                            </iframe>
+                            <div class="card-body">
+                               
+                                <p class="card-text">{item.name}</p>
+                                
+                            </div>
+                        </div>
                         
                     )
                 })

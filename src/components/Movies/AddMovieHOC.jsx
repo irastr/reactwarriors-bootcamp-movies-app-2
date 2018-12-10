@@ -5,7 +5,7 @@ import _ from "lodash";
 
 export default (Component, type) =>
     class AddMovieHOC extends React.Component {
-        // displayName: "AddMovieHOC";
+
 
         static propTypes = {
             // session_id: PropTypes.oneOfType([
@@ -50,13 +50,15 @@ export default (Component, type) =>
                 toggleModal,
                 item,
                 user,
-                getFavoritesWatchlist
+                getFavoritesWatchlist, addToList, deleteFromList
+
             } = this.props;
 
             if (session_id) {
                 this.setState(
                     prevState => ({ isAdd: !prevState.isAdd }),
                     () => {
+
                         CallApi.post(`/account/${user.id}/${name}`, {
                             params: {
                                 session_id
@@ -77,6 +79,7 @@ export default (Component, type) =>
         };
 
         render() {
+            // console.log("AddMovieHOC render")
             return (
                 <Component
                     {...this.props}
