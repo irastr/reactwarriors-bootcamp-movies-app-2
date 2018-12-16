@@ -59,6 +59,12 @@ export default (Component, type) =>
                     prevState => ({ isAdd: !prevState.isAdd }),
                     () => {
 
+                        if (this.state.isAdd) {
+                            addToList(item, type)
+                        } else {
+                            deleteFromList(item, type)
+                        }
+
                         CallApi.post(`/account/${user.id}/${name}`, {
                             params: {
                                 session_id
@@ -69,7 +75,7 @@ export default (Component, type) =>
                                 [name]: this.state.isAdd
                             }
                         }).then(data => {
-                            getFavoritesWatchlist();
+                            // getFavoritesWatchlist();
                         });
                     }
                 );
@@ -79,7 +85,7 @@ export default (Component, type) =>
         };
 
         render() {
-            // console.log("AddMovieHOC render")
+            console.log("AddMovieHOC render")
             return (
                 <Component
                     {...this.props}

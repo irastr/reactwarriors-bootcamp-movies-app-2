@@ -52,10 +52,9 @@ class MovieVideos extends React.Component {
                     console.log(item)
                     return (
 
-
-                        <div class="card" style={{"width": "500px", "height": "415px", "margin":"20px"}}>
+                        <div className="card" key={item.key} style={{"width": "400px", "height": "415px", "margin":"20px"}}>
   
-                            <iframe key={item.key}
+                            <iframe 
                             width="100%" height="100%" 
                             src={`https://www.youtube.com/embed/${item.key}`} 
                             frameBorder="0" allow="accelerometer; 
@@ -64,9 +63,9 @@ class MovieVideos extends React.Component {
                             title={item.key}
                             allowFullScreen>
                             </iframe>
-                            <div class="card-body">
+                            <div className="card-body">
                                
-                                <p class="card-text">{item.name}</p>
+                                <p className="card-text">{item.name}</p>
                                 
                             </div>
                         </div>

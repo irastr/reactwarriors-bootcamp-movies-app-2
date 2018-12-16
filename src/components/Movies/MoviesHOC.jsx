@@ -48,7 +48,7 @@ export default (Component) => class MoviesHOC extends React.Component {
                     preloader: false
                 });
 
-                this.props.getFavoritesWatchlist()
+                // this.props.getFavoritesWatchlist()
 
 
             })

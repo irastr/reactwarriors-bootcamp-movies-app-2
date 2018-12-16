@@ -105,7 +105,7 @@ export default class App extends React.Component {
 
 
   getFavoritesWatchlist = () => {
-    // console.log("getFavoritesWatchlist", "call")
+    console.log("getFavoritesWatchlist", "call")
     if (this.state.user && this.state.session_id) {
       this.getList("favorite", "favoriteMovies");
       this.getList("watchlist", "watchlistMovies");
