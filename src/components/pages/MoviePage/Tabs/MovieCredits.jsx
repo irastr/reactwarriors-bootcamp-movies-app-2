@@ -1,6 +1,6 @@
 import React from 'react';
 import CallApi from '../../../../api/api';
-import Loader from 'react-loader-spinner'
+import Load from "../../../Loader/Load"
 
 
 class MovieCredits extends React.Component {
@@ -39,13 +39,8 @@ class MovieCredits extends React.Component {
         return (<div className="d-flex justify-content-center flex-wrap ">
 
             {preloader ? (
-                <div className="loader mt-5">
-                    <Loader
-                        type="Puff"
-                        color="#047AFB"
-                        height="100"
-                        width="100"
-                    />
+                <div className="mt-5">
+                    <Load />
                 </div>
             ) : (
 

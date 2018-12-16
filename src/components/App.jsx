@@ -38,6 +38,16 @@ export default class App extends React.Component {
     };
   }
 
+  // updateUserSessionId = (user, session_id) => {
+  //   cookies.set("session_id", session_id, {
+  //     path: "/",
+  //     maxAge: 2592000
+  //   });
+  //   this.setState({
+  //     session_id,
+  //     user
+  //   });
+  // }
 
 
   updateUser = (user) => {
@@ -69,6 +79,7 @@ export default class App extends React.Component {
         .then(user => {
           this.updateUser(user);
           this.updateSessionId(session_id)
+          // this.updateUserSessionId(user, session_id)
           this.getFavoritesWatchlist()
         });
     }
@@ -127,12 +138,12 @@ export default class App extends React.Component {
   }
 
 
-  // componentDidUpdate(prevProps, prevState) {
-  //   if (prevState.user === null && !_.isEqual(prevState.user, this.state.user)) {
-  //     this.getFavoritesWatchlist()
-  //   }
+  componentDidUpdate(prevProps, prevState) {
+    if (prevState.user === null && !_.isEqual(prevState.user, this.state.user)) {
+      this.getFavoritesWatchlist()
+    }
 
-  // }
+  }
 
   addToList = (item, type) => {
 

@@ -1,14 +1,14 @@
 import React from 'react';
 import CallApi from '../../../api/api';
 import { Route, Switch } from "react-router-dom";
-import FavoriteMoviePage from "./Icons/FavoriteMoviePage";
-import WatchListMoviePage from "./Icons/WatchListMoviePage";
 import AppContextHOC from "../../HOC/AppContextHOC"
 import Tabs from "./Tabs/Tabs"
-import Loader from 'react-loader-spinner'
+// import Loader from 'react-loader-spinner'
+import Load from "../../Loader/Load"
 import MovieDetail from "./Tabs/MovieDetail"
 import MovieVideos from "./Tabs/MovieVideos"
 import MovieCredits from "./Tabs/MovieCredits"
+import MoviePageInfo from "./MoviePageInfo"
 
 
 
@@ -54,62 +54,13 @@ class MoviePage extends React.Component {
             <React.Fragment>
                 {preloader ? (
                     <div className="mt-4">
-                        <div className="loader">
-                            <Loader
-                                type="Puff"
-                                color="#047AFB"
-                                height="100"
-                                width="100"
-                            />
-                        </div>
+                        <Load />
                     </div>
 
                 ) : (
                         <React.Fragment>
-                            <div className="moviepage-background" style={{
-                                backgroundImage: "linear-gradient(0deg,rgba(255,0,150,0.7),rgba(55, 103, 222,0.7)), url(" + `https://image.tmdb.org/t/p/w500${
-                                    item.backdrop_path} ` + ")", backgroundPosition: 'center',
-                                backgroundSize: 'cover',
-                                backgroundRepeat: 'no-repeat',
-                                backgroundColor: 'rgba(0, 0, 0, 0.5)'
+                            <MoviePageInfo item={item} user={user} />
 
-                            }}>
-                                <div className="container p-3">
-
-                                    <div className="row mt-5 ">
-                                        <div className="col-md-4 col-9 ">
-                                            <div className="card" style={{ "width": "100 %" }}>
-                                                <img className="card-img-top" src={path} alt="Card cap" />
-                                            </div>
-
-                                        </div>
-
-                                        <div className="col-md-8 col-12 " style={{ "color": "#FDFDFD", "fontWeight": "bold" }}>
-                                            <h3 className="mb-3">{item.title}</h3>
-                                            <div className="d-flex ">
-                                                <FavoriteMoviePage
-                                                    session_id={session_id}
-                                                    toggleModal={toggleModal}
-                                                    item={item}
-                                                    user={user}
-                                                    access={true}
-                                                />
-                                                <WatchListMoviePage
-                                                    session_id={session_id}
-                                                    toggleModal={toggleModal}
-                                                    item={item}
-                                                    user={user}
-                                                    access={true}
-                                                />
-                                            </div>
-
-                                            <h4 className="mt-4" >Описание фильма:</h4>
-                                            <p >{item.overview}</p>
-
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
                             <div className="container ">
 
 

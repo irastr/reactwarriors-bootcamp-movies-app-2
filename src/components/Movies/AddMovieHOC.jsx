@@ -54,7 +54,7 @@ export default (Component, type) =>
 
             } = this.props;
 
-            if (session_id) {
+            if (session_id && user) {
                 this.setState(
                     prevState => ({ isAdd: !prevState.isAdd }),
                     () => {

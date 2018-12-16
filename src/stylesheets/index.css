@@ -7,18 +7,14 @@ body {
 }
 
  
-.bookmark-icon {
-  cursor: pointer; 
-  
-}
 
-.heart-icon {
+.icon {
   cursor: pointer;
   margin-right: 5px;
 }
 
 
-.heart-icon--page {
+.icon-page-wrap {
   height: 40px;
   width: 40px;
   cursor: pointer;
@@ -30,28 +26,23 @@ body {
   margin-right: 15px;
 }
 
-.icon-heart:hover {
+.icon-heart-hover:hover {
   background: #D6535D
   /* background: #FDFDFD */
 }
 
-.icon-bookmark:hover {
+.icon-bookmark-hover:hover {
   background:#61C493
   /* background: #FDFDFD */
 }
 
-/* .icon--page:hover {
-  color:#D6535D
-} */
-
-
-
-.icon--page {
+.icon-page {
   position: absolute;
   left: 50%;
   top: 50%;
   -webkit-transform: translate(-50%, -50%);
   transform: translate(-50%, -50%);
+  
 }
 
 .card-img--height {

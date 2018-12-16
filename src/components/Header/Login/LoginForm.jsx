@@ -94,7 +94,8 @@ class LoginForm extends React.Component {
             .then(user => {
                 const { updateUser, getFavoritesWatchlist } = this.props
                 updateUser(user);
-                getFavoritesWatchlist();
+                // updateUserSessionId(user)
+                // getFavoritesWatchlist();
 
                 this.setState({
                     submitting: false
