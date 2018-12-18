@@ -32,26 +32,8 @@ class User extends React.Component {
                 session_id
             }
         })
-            // fetchApi(
-            //     `${API_URL}/authentication/session?api_key=${API_KEY_3}`
-
-            //     , {
-            //         method: "DELETE",
-            //         mode: "cors",
-            //         headers: {
-            //             "Content-type": "application/json;charset=utf-8"
-            //         },
-            //         body: JSON.stringify(
-            //             {
-            //                 "session_id": session_id
-            //             }
-            //         )
-            //     }
-
-
             .then(data => {
                 console.log(data)
-
                 onLogOut()
             })
 

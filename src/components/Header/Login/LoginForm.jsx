@@ -69,21 +69,7 @@ class LoginForm extends React.Component {
                     }
                 })
 
-                // return fetchApi(
-                //     `${API_URL}/authentication/token/validate_with_login?api_key=${API_KEY_3}`,
-                //     {
-                //         method: "POST",
-                //         mode: "cors",
-                //         headers: {
-                //             "Content-type": "application/json"
-                //         },
-                //         body: JSON.stringify({
-                //             username: this.state.username,
-                //             password: this.state.password,
-                //             request_token: data.request_token
-                //         })
-                //     }
-                // );
+
             })
             .then(data => {
                 return CallApi.post("/authentication/session/new", {
@@ -91,19 +77,7 @@ class LoginForm extends React.Component {
                         request_token: data.request_token
                     }
                 })
-                // return fetchApi(
-                //     `${API_URL}/authentication/session/new?api_key=${API_KEY_3}`,
-                //     {
-                //         method: "POST",
-                //         mode: "cors",
-                //         headers: {
-                //             "Content-type": "application/json"
-                //         },
-                //         body: JSON.stringify({
-                //             request_token: data.request_token
-                //         })
-                //     }
-                // );
+
             })
             .then(data => {
                 const { updateSessionId } = this.props
@@ -115,16 +89,13 @@ class LoginForm extends React.Component {
                     }
                 })
 
-                // return fetchApi(
-                //     `${API_URL}/account?api_key=${API_KEY_3}&session_id=${
-                //     data.session_id
-                //     }`
-                // );
+
             })
             .then(user => {
                 const { updateUser, getFavoritesWatchlist } = this.props
                 updateUser(user);
-                getFavoritesWatchlist();
+                // updateUserSessionId(user)
+                // getFavoritesWatchlist();
 
                 this.setState({
                     submitting: false

@@ -48,7 +48,7 @@ export default (Component) => class MoviesHOC extends React.Component {
                     preloader: false
                 });
 
-                this.props.getFavoritesWatchlist()
+                // this.props.getFavoritesWatchlist()
 
 
             })
@@ -56,9 +56,7 @@ export default (Component) => class MoviesHOC extends React.Component {
     };
 
     componentDidMount() {
-
         this.getMovies(this.props.filters, this.props.page);
-
     }
 
 

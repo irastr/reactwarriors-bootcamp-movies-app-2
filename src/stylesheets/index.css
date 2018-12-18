@@ -7,14 +7,42 @@ body {
 }
 
  
-.bookmark-icon {
-  cursor: pointer; 
-  
-}
 
-.heart-icon {
+.icon {
   cursor: pointer;
   margin-right: 5px;
+}
+
+
+.icon-page-wrap {
+  height: 40px;
+  width: 40px;
+  cursor: pointer;
+
+  border: 2px solid #FDFDFD;
+  border-radius: 50%;
+  padding: 5px;
+  position: relative;
+  margin-right: 15px;
+}
+
+.icon-heart-hover:hover {
+  background: #D6535D
+  /* background: #FDFDFD */
+}
+
+.icon-bookmark-hover:hover {
+  background:#61C493
+  /* background: #FDFDFD */
+}
+
+.icon-page {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  -webkit-transform: translate(-50%, -50%);
+  transform: translate(-50%, -50%);
+  
 }
 
 .card-img--height {
@@ -25,8 +53,42 @@ body {
 
 .loader {
  margin: 0 auto;
+ text-align: center
 } 
 
 .movies-empty {
   margin: 0 auto;
+}
+
+.nav-home {
+  color: #fdfdfd
+}
+
+.cast-img {
+  width: 125px;
+  height: 182px;
+  
+}
+
+/* .moviepage-background:after {
+  content: "";
+  position: absolute;
+  left: 0; right: 0;
+  top: 0; bottom: 0;
+  background: rgba(0,0,0,.5);
+} */
+
+
+.movie-tab.active {
+ 
+ text-decoration: none;
+ font-weight: bold;
+ 
+}
+
+
+.movie-tab:hover {
+  color: #007bff;
+  text-decoration: none;
+  
 }

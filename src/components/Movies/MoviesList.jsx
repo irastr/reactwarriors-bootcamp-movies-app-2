@@ -4,7 +4,8 @@ import React from "react";
 import MovieItem from "./MovieItem";
 import MoviesHOC from "./MoviesHOC"
 
-import Loader from 'react-loader-spinner'
+// import Loader from 'react-loader-spinner'
+import Load from "../Loader/Load"
 
 import PropTypes from "prop-types"
 import AppContextHOC from "../HOC/AppContextHOC"
@@ -14,21 +15,9 @@ const MoviesList = ({ movies, user, session_id, toggleModal, preloader }) => (
 
   <div className="row" >
     {preloader ? (
-
-      <div className="loader">
-        <Loader
-          type="Puff"
-          color="#047AFB"
-          height="100"
-          width="100"
-        />
-      </div>
-
-
+      <Load />
     ) :
-
       movies.length > 0 ? (
-
         (
           movies.map(movie => {
             return (

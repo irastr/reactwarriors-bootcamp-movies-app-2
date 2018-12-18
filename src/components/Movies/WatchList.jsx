@@ -1,5 +1,6 @@
 import React from "react";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import UIIcon from "../UIComponents/UIIcon"
+// import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import AddMovieHOC from "./AddMovieHOC";
 import AppContextHOC from "../HOC/AppContextHOC"
 
@@ -10,8 +11,9 @@ class WatchList extends React.Component {
         const { onClick, isAdd } = this.props;
 
         return (
-            <div className="heart-icon" onClick={onClick("watchlist")}>
-                <FontAwesomeIcon icon={[isAdd ? "fas" : "far", "bookmark"]} />
+            <div className="icon" >
+                {/* <FontAwesomeIcon icon={[isAdd ? "fas" : "far", "bookmark"]} /> */}
+                <UIIcon isAdd={isAdd} type="bookmark" onClick={onClick("watchlist")} />
             </div>
         );
     }
