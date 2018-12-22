@@ -1,5 +1,4 @@
 import React from "react";
-import CallApi from "../../../api/api";
 import AppContextHOC from "../../HOC/AppContextHOC";
 import { inject, observer } from "mobx-react";
 
