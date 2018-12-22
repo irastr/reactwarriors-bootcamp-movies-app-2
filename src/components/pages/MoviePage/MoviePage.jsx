@@ -3,7 +3,6 @@ import CallApi from "../../../api/api";
 import { Route, Switch } from "react-router-dom";
 import AppContextHOC from "../../HOC/AppContextHOC";
 import Tabs from "./Tabs/Tabs";
-// import Loader from 'react-loader-spinner'
 import Load from "../../Loader/Load";
 import MovieDetail from "./Tabs/MovieDetail";
 import MovieVideos from "./Tabs/MovieVideos";
@@ -48,10 +47,8 @@ class MoviePage extends React.Component {
         ) : (
           <React.Fragment>
             <MoviePageInfo item={item} user={user} />
-
             <div className="container ">
               <Tabs id={this.props.match.params.id} />
-
               <Switch>
                 <Route
                   path="/movie/:id/movie-detail"
