@@ -6,82 +6,35 @@ import { inject, observer } from "mobx-react";
   loginValues: formStore.loginValues,
   onChange: formStore.onChange,
   handleBlur: formStore.handleBlur,
-  errors: formStore.errors
+  validateFields: formStore.validateFields,
+  chainPromises: formStore.chainPromises
 }))
 @observer
 class LoginForm extends React.Component {
-  state = {
-    submitting: false
-  };
-
-  // onSubmit = () => {
-  //   this.setState({
-  //     submitting: true
-  //   });
-  //   CallApi.get("/authentication/token/new")
-  //     .then(data => {
-  //       return CallApi.post("/authentication/token/validate_with_login", {
-  //         body: {
-  //           username: this.state.username,
-  //           password: this.state.password,
-  //           request_token: data.request_token
-  //         }
-  //       });
-  //     })
-  //     .then(data => {
-  //       return CallApi.post("/authentication/session/new", {
-  //         body: {
-  //           request_token: data.request_token
-  //         }
-  //       });
-  //     })
-  //     .then(data => {
-  //       const { updateSessionId } = this.props;
-  //       updateSessionId(data.session_id);
-
-  //       return CallApi.get("/account", {
-  //         params: {
-  //           session_id: data.session_id
-  //         }
-  //       });
-  //     })
-  //     .then(user => {
-  //       const { updateUser } = this.props;
-  //       updateUser(user);
-  //       this.setState({
-  //         submitting: false
-  //       });
-  //       this.props.toggleModal();
-  //     })
-  //     .catch(error => {
-  //       console.log("error", error);
-  //       this.setState({
-  //         submitting: false,
-  //         errors: {
-  //           base: error.status_message
-  //         }
-  //       });
-  //     });
-  // };
-
-  onLogin = e => {
-    e.preventDefault();
-    const errors = this.validateFields();
+  onLogin = event => {
+    event.preventDefault();
+    const errors = this.props.validateFields();
+    console.log(this.props.errors, "errors from state");
+    console.log(errors, "errors from function");
     if (Object.keys(errors).length > 0) {
-      this.setState(prevState => ({
-        errors: {
-          ...prevState.errors,
-          ...errors
-        }
-      }));
+      this.props.loginValues.errors = errors;
     } else {
       this.onSubmit();
     }
   };
 
+  onSubmit = () => {
+    const { updateUser, updateSessionId, toggleModal } = this.props;
+    const callback = (user, session_id) => {
+      updateUser(user);
+      updateSessionId(session_id);
+      toggleModal();
+    };
+    this.props.chainPromises(callback);
+  };
+
   render() {
-    const { submitting } = this.state;
-    const { onChange, loginValues, handleBlur, errors } = this.props;
+    const { onChange, loginValues, handleBlur } = this.props;
     return (
       <div className="form-login-container">
         <form className="form-login">
@@ -100,8 +53,10 @@ class LoginForm extends React.Component {
               onChange={onChange}
               onBlur={handleBlur}
             />
-            {errors.username && (
-              <div className="invalid-feedback">{errors.username}</div>
+            {loginValues.errors.username && (
+              <div className="invalid-feedback">
+                {loginValues.errors.username}
+              </div>
             )}
           </div>
 
@@ -117,8 +72,10 @@ class LoginForm extends React.Component {
               onChange={onChange}
               onBlur={handleBlur}
             />
-            {errors.password && (
-              <div className="invalid-feedback">{errors.password}</div>
+            {loginValues.errors.password && (
+              <div className="invalid-feedback">
+                {loginValues.errors.password}
+              </div>
             )}
           </div>
 
@@ -133,8 +90,10 @@ class LoginForm extends React.Component {
               onChange={onChange}
               onBlur={handleBlur}
             />
-            {errors.repeatPassword && (
-              <div className="invalid-feedback">{errors.repeatPassword}</div>
+            {loginValues.errors.repeatPassword && (
+              <div className="invalid-feedback">
+                {loginValues.errors.repeatPassword}
+              </div>
             )}
           </div>
 
@@ -142,12 +101,14 @@ class LoginForm extends React.Component {
             type="submit"
             className="btn btn-lg btn-primary btn-block"
             onClick={this.onLogin}
-            disabled={submitting}
+            disabled={loginValues.submitting}
           >
-            {submitting ? "Выполняется вход..." : "Вход"}
+            {loginValues.submitting ? "Выполняется вход..." : "Вход"}
           </button>
-          {errors.base && (
-            <div className="invalid-feedback text-center">{errors.base}</div>
+          {loginValues.errors.base && (
+            <div className="invalid-feedback text-center">
+              {loginValues.errors.base}
+            </div>
           )}
         </form>
       </div>
