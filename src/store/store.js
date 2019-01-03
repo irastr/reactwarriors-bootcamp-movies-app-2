@@ -1,36 +1,58 @@
-import { observable, action } from "mobx";
+import { observable, action, configure } from "mobx";
 import CallApi from "../api/api";
+
+configure({ enforceActions: "always" });
+//with it we can mutate @observable only in @actions
 
 export default class Store {
   @observable
   loginValues = {
     username: "irastr",
     password: "str14795",
-    repeatPassword: "str14795",
-    submitting: false,
-    errors: {}
+    repeatPassword: "str14795"
   };
+  @observable submitting = false;
+  @observable errors = {};
 
   @action
   onChange = event => {
     this.loginValues[event.target.name] = event.target.value;
-    this.loginValues.errors[event.target.name] = null;
-    this.loginValues.errors.base = null;
+    // this.loginValues.errors[event.target.name] = null;
+    // this.loginValues.errors.base = null;
+
+    //to get rid of mutation not in action:
+    this.updateErrors({
+      base: null,
+      [event.target.name]: null
+    });
+  };
+
+  @action
+  updateSubmitting = value => {
+    this.submitting = value;
+  };
+
+  //patern for observable modification
+  @action
+  updateErrors = (errors = {}) => {
+    for (let key in errors) {
+      this.loginValues.errors[key] = errors[key];
+    }
   };
 
   validateFields = name => {
     const errors = {};
     if (this.loginValues.username === "") {
-      this.loginValues.errors.username = "Поле не должно быть пустым";
+      errors.username = "Поле не должно быть пустым";
     }
     if (this.loginValues.password === "") {
-      this.loginValues.errors.password = "Поле не должно быть пустым";
+      errors.password = "Поле не должно быть пустым";
     }
     if (
       this.loginValues.password !== this.loginValues.repeatPassword &&
       this.loginValues.password !== ""
     ) {
-      this.loginValues.errors.repeatPassword = "Пароли должны совпадать";
+      errors.repeatPassword = "Пароли должны совпадать";
     }
     return errors;
   };
@@ -38,17 +60,15 @@ export default class Store {
   @action
   handleBlur = event => {
     const errors = this.validateFields(event.target.name);
-
     if (Object.keys(errors).length > 0) {
       this.loginValues.errors = errors;
     }
   };
 
   @action
-  chainPromises = callback => {
+  onSubmit = callback => {
     let session_id;
-    this.loginValues.submitting = true;
-
+    this.updateSubmitting(true);
     CallApi.get("/authentication/token/new")
       .then(data => {
         return CallApi.post("/authentication/token/validate_with_login", {
@@ -75,13 +95,16 @@ export default class Store {
         });
       })
       .then(user => {
-        this.loginValues.submitting = false;
+        this.updateSubmitting(false);
         callback(user, session_id);
       })
       .catch(error => {
         console.log("error", error);
-        this.loginValues.submitting = false;
-        this.loginValues.errors.base = error.status_message;
+        this.updateSubmitting(false);
+        // this.loginValues.errors.base = error.status_message;
+        this.updateErrors({
+          base: error.status_message
+        });
       });
   };
 

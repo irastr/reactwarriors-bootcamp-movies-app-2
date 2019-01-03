@@ -7,34 +7,38 @@ import { inject, observer } from "mobx-react";
   onChange: formStore.onChange,
   handleBlur: formStore.handleBlur,
   validateFields: formStore.validateFields,
-  chainPromises: formStore.chainPromises
+  onSubmit: formStore.onSubmit,
+  updateErrors: formStore.updateErrors,
+  submitting: formStore.submitting,
+  errors: formStore.errors
 }))
 @observer
 class LoginForm extends React.Component {
   onLogin = event => {
+    const { updateUser, updateSessionId, toggleModal } = this.props;
     event.preventDefault();
     const errors = this.props.validateFields();
-    console.log(this.props.errors, "errors from state");
-    console.log(errors, "errors from function");
     if (Object.keys(errors).length > 0) {
-      this.props.loginValues.errors = errors;
+      // this.props.loginValues.errors = errors;
+      this.props.updateErrors(errors);
     } else {
-      this.onSubmit();
+      const callback = (user, session_id) => {
+        updateUser(user);
+        updateSessionId(session_id);
+        toggleModal();
+      };
+      this.props.onSubmit(callback);
     }
   };
 
-  onSubmit = () => {
-    const { updateUser, updateSessionId, toggleModal } = this.props;
-    const callback = (user, session_id) => {
-      updateUser(user);
-      updateSessionId(session_id);
-      toggleModal();
-    };
-    this.props.chainPromises(callback);
-  };
-
   render() {
-    const { onChange, loginValues, handleBlur } = this.props;
+    const {
+      onChange,
+      loginValues,
+      handleBlur,
+      submitting,
+      errors
+    } = this.props;
     return (
       <div className="form-login-container">
         <form className="form-login">
@@ -53,10 +57,8 @@ class LoginForm extends React.Component {
               onChange={onChange}
               onBlur={handleBlur}
             />
-            {loginValues.errors.username && (
-              <div className="invalid-feedback">
-                {loginValues.errors.username}
-              </div>
+            {errors.username && (
+              <div className="invalid-feedback">{errors.username}</div>
             )}
           </div>
 
@@ -72,10 +74,8 @@ class LoginForm extends React.Component {
               onChange={onChange}
               onBlur={handleBlur}
             />
-            {loginValues.errors.password && (
-              <div className="invalid-feedback">
-                {loginValues.errors.password}
-              </div>
+            {errors.password && (
+              <div className="invalid-feedback">{errors.password}</div>
             )}
           </div>
 
@@ -90,10 +90,8 @@ class LoginForm extends React.Component {
               onChange={onChange}
               onBlur={handleBlur}
             />
-            {loginValues.errors.repeatPassword && (
-              <div className="invalid-feedback">
-                {loginValues.errors.repeatPassword}
-              </div>
+            {errors.repeatPassword && (
+              <div className="invalid-feedback">{errors.repeatPassword}</div>
             )}
           </div>
 
@@ -101,14 +99,12 @@ class LoginForm extends React.Component {
             type="submit"
             className="btn btn-lg btn-primary btn-block"
             onClick={this.onLogin}
-            disabled={loginValues.submitting}
+            disabled={submitting}
           >
-            {loginValues.submitting ? "Выполняется вход..." : "Вход"}
+            {submitting ? "Выполняется вход..." : "Вход"}
           </button>
-          {loginValues.errors.base && (
-            <div className="invalid-feedback text-center">
-              {loginValues.errors.base}
-            </div>
+          {errors.base && (
+            <div className="invalid-feedback text-center">{errors.base}</div>
           )}
         </form>
       </div>
