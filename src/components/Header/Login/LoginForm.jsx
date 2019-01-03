@@ -11,23 +11,25 @@ import { inject, observer } from "mobx-react";
   updateErrors: formStore.updateErrors,
   submitting: formStore.submitting,
   errors: formStore.errors
+
+  // formStore
 }))
 @observer
 class LoginForm extends React.Component {
   onLogin = event => {
-    const { updateUser, updateSessionId, toggleModal } = this.props;
+    // const { updateUser, updateSessionId, toggleModal } = this.props;
     event.preventDefault();
     const errors = this.props.validateFields();
     if (Object.keys(errors).length > 0) {
       // this.props.loginValues.errors = errors;
       this.props.updateErrors(errors);
     } else {
-      const callback = (user, session_id) => {
-        updateUser(user);
-        updateSessionId(session_id);
-        toggleModal();
-      };
-      this.props.onSubmit(callback);
+      // const callback = (user, session_id) => {
+      //   updateUser(user);
+      //   updateSessionId(session_id);
+      //   toggleModal();
+      // };
+      this.props.onSubmit();
     }
   };
 

@@ -1,10 +1,11 @@
 import { observable, action, configure } from "mobx";
 import CallApi from "../api/api";
+import { userStore } from "./userStore";
 
 configure({ enforceActions: "always" });
 //with it we can mutate @observable only in @actions
 
-export default class Store {
+class FormStore {
   @observable
   loginValues = {
     username: "irastr",
@@ -13,6 +14,12 @@ export default class Store {
   };
   @observable submitting = false;
   @observable errors = {};
+  @observable showLoginModal = false;
+
+  @action
+  toggleModal = () => {
+    this.showLoginModal = !this.showLoginModal;
+  };
 
   @action
   onChange = event => {
@@ -36,7 +43,7 @@ export default class Store {
   @action
   updateErrors = (errors = {}) => {
     for (let key in errors) {
-      this.loginValues.errors[key] = errors[key];
+      this.errors[key] = errors[key];
     }
   };
 
@@ -61,7 +68,8 @@ export default class Store {
   handleBlur = event => {
     const errors = this.validateFields(event.target.name);
     if (Object.keys(errors).length > 0) {
-      this.loginValues.errors = errors;
+      // this.loginValues.errors = errors;
+      this.updateErrors(errors);
     }
   };
 
@@ -96,7 +104,10 @@ export default class Store {
       })
       .then(user => {
         this.updateSubmitting(false);
-        callback(user, session_id);
+        // callback(user, session_id);
+        userStore.updateAuth(user, session_id);
+        // userStore.updateSessionId(session_id);
+        this.toggleModal();
       })
       .catch(error => {
         console.log("error", error);
@@ -107,15 +118,6 @@ export default class Store {
         });
       });
   };
-
-  // @action
-  // onLogin = event => {
-  //   event.preventDefault();
-  //   const errors = this.validateFields();
-  //   if (Object.keys(errors).length > 0) {
-  //     this.errors = errors;
-  //   } else {
-  //     this.onSubmit();
-  //   }
-  // };
 }
+
+export const formStore = new FormStore();

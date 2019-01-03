@@ -1,19 +1,28 @@
-import React from 'react';
-import { Modal, ModalBody } from 'reactstrap';
-import LoginForm from "./LoginForm"
+import React from "react";
+import { Modal, ModalBody } from "reactstrap";
+import LoginForm from "./LoginForm";
+import { inject, observer } from "mobx-react";
 
-const LoginModal = ({ showLoginModal, toggle, updateSessionId, toggleModal }) => {
+@inject(({ formStore }) => ({
+  formStore
+}))
+@observer
+class LoginModal extends React.Component {
+  render() {
     return (
-        <Modal isOpen={showLoginModal} toggle={toggle} >
-            <ModalBody>
-                <LoginForm
-                    updateSessionId={updateSessionId}
-                    toggleModal={toggleModal}
-
-                />
-            </ModalBody>
-        </Modal>
+      <Modal
+        isOpen={this.props.formStore.showLoginModal}
+        toggle={this.props.toggle}
+      >
+        <ModalBody>
+          <LoginForm
+            updateSessionId={this.props.updateSessionId}
+            toggleModal={this.props.toggleModal}
+          />
+        </ModalBody>
+      </Modal>
     );
+  }
 }
 
 export default LoginModal;

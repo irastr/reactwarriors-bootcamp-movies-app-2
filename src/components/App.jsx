@@ -24,9 +24,6 @@ class App extends React.Component {
     super();
 
     this.state = {
-      user: null,
-      session_id: null,
-      showLoginModal: false,
       favoriteMovies: [],
       watchlistMovies: []
     };
@@ -43,43 +40,43 @@ class App extends React.Component {
   //   });
   // }
 
-  updateUser = user => {
-    this.setState({
-      user
-    });
-  };
+  // updateUser = user => {
+  //   this.setState({
+  //     user
+  //   });
+  // };
 
-  updateSessionId = session_id => {
-    cookies.set("session_id", session_id, {
-      path: "/",
-      maxAge: 2592000
-    });
-    this.setState({
-      session_id
-    });
-  };
+  // updateSessionId = session_id => {
+  //   cookies.set("session_id", session_id, {
+  //     path: "/",
+  //     maxAge: 2592000
+  //   });
+  //   this.setState({
+  //     session_id
+  //   });
+  // };
 
-  componentDidMount() {
-    const session_id = cookies.get("session_id");
-    if (session_id) {
-      CallApi.get("/account", {
-        params: {
-          session_id
-        }
-      }).then(user => {
-        this.updateUser(user);
-        this.updateSessionId(session_id);
-        // this.updateUserSessionId(user, session_id)
-        this.getFavoritesWatchlist();
-      });
-    }
-  }
+  // componentDidMount() {
+  //   const session_id = cookies.get("session_id");
+  //   if (session_id) {
+  //     CallApi.get("/account", {
+  //       params: {
+  //         session_id
+  //       }
+  //     }).then(user => {
+  //       this.updateUser(user);
+  //       this.updateSessionId(session_id);
+  //       // this.updateUserSessionId(user, session_id)
+  //       this.getFavoritesWatchlist();
+  //     });
+  //   }
+  // }
 
-  toggleModal = () => {
-    this.setState(prevState => ({
-      showLoginModal: !prevState.showLoginModal
-    }));
-  };
+  // toggleModal = () => {
+  //   this.setState(prevState => ({
+  //     showLoginModal: !prevState.showLoginModal
+  //   }));
+  // };
 
   onLogOut = () => {
     CallApi.delete("/authentication/session", {
