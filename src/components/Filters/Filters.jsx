@@ -1,4 +1,3 @@
-
 import React from "react";
 import SortBy from "./SortBy";
 import PrimaryReleaseYear from "./PrimaryReleaseYear";
