@@ -2,52 +2,18 @@ import React from "react";
 // import MoviesList from "./MoviesList";
 import CallApi, { API_KEY_3 } from "../../api/api";
 import _ from "lodash";
+import { inject, observer } from "mobx-react";
 
 export default Component =>
+  @inject(({ moviesPageStore }) => ({
+    moviesPageStore
+  }))
+  @observer
   class MoviesHOC extends React.Component {
-    constructor() {
-      super();
-
-      this.state = {
-        movies: [],
-        preloader: false
-      };
-    }
-
-    getMovies = (filters, page) => {
-      this.setState({
-        preloader: true
-      });
-
-      const { sort_by, primary_release_year, with_genres } = filters;
-      const queryStringParams = {
-        api_key: API_KEY_3,
-        language: "ru-RU",
-        sort_by: sort_by,
-        page: page,
-        primary_release_year: primary_release_year
-      };
-
-      if (with_genres.length > 0)
-        queryStringParams.with_genres = with_genres.join(",");
-
-      CallApi.get("/discover/movie", {
-        params: queryStringParams
-      })
-      .then(data => {
-        this.props.onChangePagination({
-          page: data.page,
-          total_pages: data.total_pages
-        });
-        this.setState({
-          movies: data.results,
-          preloader: false
-        });
-      });
-    };
-
     componentDidMount() {
-      this.getMovies(this.props.filters, this.props.page);
+      // this.getMovies(this.props.filters, this.props.page);
+      this.props.moviesPageStore.getMovies();
+      console.log(this.props.moviesPageStore.page);
     }
 
     componentDidUpdate(prevProps) {
@@ -62,17 +28,18 @@ export default Component =>
     }
 
     render() {
-      const { movies, preloader } = this.state;
+      // const { movies, preloader } = this.state;
 
       const { user, session_id, toggleModal } = this.props;
       return (
         <Component
-          movies={movies}
-          user={user}
-          session_id={session_id}
-          toggleModal={toggleModal}
-          preloader={preloader}
+          movies={this.props.moviesPageStore.movies}
+          // user={user}
+          // session_id={session_id}
+          // toggleModal={toggleModal}
+          // preloader={preloader}
         />
       );
     }
+    // return MoviesHOC
   };

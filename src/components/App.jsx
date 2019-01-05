@@ -6,7 +6,7 @@ import LoginModal from "./Header/Login/LoginModal";
 import MoviesPage from "./pages/MoviesPage/MoviesPage";
 import MoviePage from "./pages/MoviePage/MoviePage";
 import _ from "lodash";
-import { observer } from "mobx-react";
+import { inject, observer } from "mobx-react";
 import { BrowserRouter, Route } from "react-router-dom";
 import { library } from "@fortawesome/fontawesome-svg-core";
 import { faBookmark, faHeart } from "@fortawesome/free-solid-svg-icons";
@@ -16,8 +16,12 @@ import {
 } from "@fortawesome/free-regular-svg-icons";
 library.add(faBookmark, faHeart, bookmarkRegular, heartRegular);
 const cookies = new Cookies();
+
 export const AppContext = React.createContext();
 
+@inject(({ userStore }) => ({
+  userStore
+}))
 @observer
 class App extends React.Component {
   constructor() {
@@ -29,54 +33,12 @@ class App extends React.Component {
     };
   }
 
-  // updateUserSessionId = (user, session_id) => {
-  //   cookies.set("session_id", session_id, {
-  //     path: "/",
-  //     maxAge: 2592000
-  //   });
-  //   this.setState({
-  //     session_id,
-  //     user
-  //   });
-  // }
-
-  // updateUser = user => {
-  //   this.setState({
-  //     user
-  //   });
-  // };
-
-  // updateSessionId = session_id => {
-  //   cookies.set("session_id", session_id, {
-  //     path: "/",
-  //     maxAge: 2592000
-  //   });
-  //   this.setState({
-  //     session_id
-  //   });
-  // };
-
-  // componentDidMount() {
-  //   const session_id = cookies.get("session_id");
-  //   if (session_id) {
-  //     CallApi.get("/account", {
-  //       params: {
-  //         session_id
-  //       }
-  //     }).then(user => {
-  //       this.updateUser(user);
-  //       this.updateSessionId(session_id);
-  //       // this.updateUserSessionId(user, session_id)
-  //       this.getFavoritesWatchlist();
-  //     });
-  //   }
-  // }
-
-  // toggleModal = () => {
-  //   this.setState(prevState => ({
-  //     showLoginModal: !prevState.showLoginModal
-  //   }));
-  // };
+  componentDidMount() {
+    const {
+      userStore: { getUserFromCookies }
+    } = this.props;
+    getUserFromCookies();
+  }
 
   onLogOut = () => {
     CallApi.delete("/authentication/session", {

@@ -15,20 +15,6 @@ class UserStore {
     return Boolean(Object.keys(this.user).length);
   }
 
-  // @action
-  // updateSessionId = session_id => {
-  //   cookies.set("session_id", session_id, {
-  //     path: "/",
-  //     maxAge: 2592000
-  //   });
-  //   this.session_id = session_id;
-  // };
-
-  // @action
-  // updateUser = user => {
-  //   this.user = user;
-  // };
-
   @action
   updateAuth = (user, session_id) => {
     cookies.set("session_id", session_id, {
@@ -39,6 +25,20 @@ class UserStore {
     this.user = user;
   };
 
+  getUserFromCookies = () => {
+    const session_id = cookies.get("session_id");
+    if (session_id) {
+      CallApi.get("/account", {
+        params: {
+          session_id
+        }
+      }).then(user => {
+        this.updateAuth(user, session_id);
+      });
+    }
+  };
+
+  // ??????
   @action
   getUser = () => {
     const session_id = cookies.get("session_id");
@@ -48,8 +48,6 @@ class UserStore {
           session_id
         }
       }).then(user => {
-        this.updateAuth(user, session_id);
-        // this.updateSessionId(session_id);
         this.updateAuth(user, session_id);
         // this.getFavoritesWatchlist();
       });
@@ -70,7 +68,6 @@ class UserStore {
       }
     }).then(() => {
       this.clearUser();
-
       // how to change this here ?
       // favoriteMovies: [],
       // watchlistMovies: []

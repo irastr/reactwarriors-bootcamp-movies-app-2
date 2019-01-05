@@ -10,8 +10,8 @@ export default (Component, type) =>
       //     PropTypes.string,
       //     PropTypes.instanceOf(null)
       // ]),
-      toggleModal: PropTypes.func.isRequired,
-      item: PropTypes.object.isRequired
+      // toggleModal: PropTypes.func.isRequired,
+      // item: PropTypes.object.isRequired
       // user: PropTypes.oneOfType([
       //     PropTypes.string,
       //     PropTypes.instanceOf(null)
