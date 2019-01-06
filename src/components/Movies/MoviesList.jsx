@@ -1,48 +1,44 @@
-
-
 import React from "react";
 import MovieItem from "./MovieItem";
-import MoviesHOC from "./MoviesHOC"
+import Load from "../Loader/Load";
+import { inject, observer } from "mobx-react";
 
-// import Loader from 'react-loader-spinner'
-import Load from "../Loader/Load"
-
-import PropTypes from "prop-types"
-import AppContextHOC from "../HOC/AppContextHOC"
-
-
-const MoviesList = ({ movies, user, session_id, toggleModal, preloader }) => (
-
-  <div className="row" >
-    {preloader ? (
-      <Load />
-    ) :
-      movies.length > 0 ? (
-        (
+@inject(({ moviesPageStore }) => ({
+  moviesPageStore
+}))
+@observer
+class MoviesList extends React.Component {
+  componentDidMount() {
+    const {
+      moviesPageStore: { getMovies }
+    } = this.props;
+    getMovies();
+  }
+  render() {
+    const {
+      moviesPageStore: { preloader, movies }
+    } = this.props;
+    return (
+      <div className="row">
+        {preloader ? (
+          <Load />
+        ) : movies.length > 0 ? (
           movies.map(movie => {
             return (
               <div key={movie.id} className="col-6 mb-4">
-                <MovieItem item={movie} user={user} session_id={session_id} toggleModal={toggleModal} />
+                <MovieItem item={movie} />
               </div>
             );
           })
-        )
-      ) : (<h4 className="movies-empty"> По Вашему запросу не найдено фильмов</h4>)
-
-
-    }
-
-  </div>
-
-
-)
-MoviesList.defaultProps = {
-  movies: []
+        ) : (
+          <h4 className="movies-empty">
+            {" "}
+            По Вашему запросу не найдено фильмов
+          </h4>
+        )}
+      </div>
+    );
+  }
 }
 
-MoviesList.propTypes = {
-  movies: PropTypes.array.isRequired
-}
-
-export default AppContextHOC(MoviesHOC(MoviesList));
-
+export default MoviesList;

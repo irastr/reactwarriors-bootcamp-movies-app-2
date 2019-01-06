@@ -1,48 +1,33 @@
 import React from "react";
-import Favorite from "./Favorite";
-import WatchList from "./WatchList"
-import { Link } from "react-router-dom"
+// import Favorite from "./Favorite";
+// import WatchList from "./WatchList";
+import { Link } from "react-router-dom";
+import { observer } from "mobx-react";
 
-
-
-
-export default class MovieItem extends React.Component {
-
-
+@observer
+class MovieItem extends React.Component {
   render() {
+    const { item } = this.props;
 
-    const { session_id, toggleModal, item, user } = this.props
-
-    const path = (item.backdrop_path || item.poster_path) ? (`https://image.tmdb.org/t/p/w500${item.backdrop_path ||
-      item.poster_path} `) : ("https://www.baltimoresportsandlife.com/wp-content/uploads/2016/07/Movies.jpg")
+    const path =
+      item.backdrop_path || item.poster_path
+        ? `https://image.tmdb.org/t/p/w500${item.backdrop_path ||
+            item.poster_path} `
+        : "https://www.baltimoresportsandlife.com/wp-content/uploads/2016/07/Movies.jpg";
 
     return (
       <div className="card" style={{ width: "100%", minHeight: "300px" }}>
-        <img
-          className="card-img-top card-img--height"
-          src={path}
-          alt=""
-        />
+        <img className="card-img-top card-img--height" src={path} alt="" />
         <div className="card-body">
-          <Link className="card-title" to={`/movie/${item.id}/movie-detail`}>{item.title}</Link>
+          <Link className="card-title" to={`/movie/${item.id}/movie-detail`}>
+            {item.title}
+          </Link>
 
           <div className="d-flex justify-content-between">
-
             <div className="card-text">Рейтинг: {item.vote_average}</div>
             <div className="d-flex">
-              <Favorite
-                session_id={session_id}
-                toggleModal={toggleModal}
-                item={item}
-                user={user}
-              />
-
-              <WatchList
-                session_id={session_id}
-                toggleModal={toggleModal}
-                item={item}
-                user={user}
-              />
+              {/* <Favorite item={item} />
+              <WatchList item={item} /> */}
             </div>
           </div>
         </div>
@@ -51,4 +36,4 @@ export default class MovieItem extends React.Component {
   }
 }
 
-
+export default MovieItem;
