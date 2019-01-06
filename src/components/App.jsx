@@ -1,7 +1,6 @@
 import React from "react";
 import Header from "./Header/Header";
 import CallApi from "../api/api";
-import Cookies from "universal-cookie";
 import LoginModal from "./Header/Login/LoginModal";
 import MoviesPage from "./pages/MoviesPage/MoviesPage";
 import MoviePage from "./pages/MoviePage/MoviePage";
@@ -15,7 +14,6 @@ import {
   faHeart as heartRegular
 } from "@fortawesome/free-regular-svg-icons";
 library.add(faBookmark, faHeart, bookmarkRegular, heartRegular);
-const cookies = new Cookies();
 
 export const AppContext = React.createContext();
 
@@ -26,7 +24,6 @@ export const AppContext = React.createContext();
 class App extends React.Component {
   constructor() {
     super();
-
     this.state = {
       favoriteMovies: [],
       watchlistMovies: []
@@ -39,23 +36,6 @@ class App extends React.Component {
     } = this.props;
     getUserFromCookies();
   }
-
-  onLogOut = () => {
-    CallApi.delete("/authentication/session", {
-      params: { session_id: this.state.session_id }
-    }).then(() => {
-      this.setState({
-        user: null,
-        session_id: null,
-        favoriteMovies: [],
-        watchlistMovies: []
-      });
-
-      cookies.remove("session_id", {
-        path: "/"
-      });
-    });
-  };
 
   getFavoritesWatchlist = () => {
     console.log("getFavoritesWatchlist", "call");
@@ -102,42 +82,14 @@ class App extends React.Component {
   };
 
   render() {
-    const {
-      user,
-      showLoginModal,
-      session_id,
-      favoriteMovies,
-      watchlistMovies
-    } = this.state;
-
     return (
       <BrowserRouter>
-        <AppContext.Provider
-          value={{
-            user: user,
-            updateUser: this.updateUser,
-            session_id: session_id,
-            onLogOut: this.onLogOut,
-            getFavoritesWatchlist: this.getFavoritesWatchlist,
-            favoriteMovies: favoriteMovies,
-            watchlistMovies: watchlistMovies,
-            addToList: this.addToList,
-            deleteFromList: this.deleteFromList,
-            toggleModal: this.toggleModal
-          }}
-        >
-          <div>
-            <LoginModal
-              showLoginModal={showLoginModal}
-              toggle={this.toggleModal}
-              updateSessionId={this.updateSessionId}
-              toggleModal={this.toggleModal}
-            />
-            <Header user={user} toggleModal={this.toggleModal} />
-            <Route exact path="/" component={MoviesPage} />
-            <Route path="/movie/:id" component={MoviePage} />
-          </div>
-        </AppContext.Provider>
+        <div>
+          <LoginModal />
+          <Header />
+          <Route exact path="/" component={MoviesPage} />
+          <Route path="/movie/:id" component={MoviePage} />
+        </div>
       </BrowserRouter>
     );
   }

@@ -1,5 +1,4 @@
 import React from "react";
-import PropTypes from "prop-types";
 import { inject, observer } from "mobx-react";
 
 @inject(({ moviesPageStore }) => ({
@@ -44,15 +43,6 @@ class Genres extends React.Component {
         ))}
       </React.Fragment>
     );
-
-    // Genres.propTypes = {
-
-    //     genresList: PropTypes.array.isRequired,
-    //     with_genres: PropTypes.array.isRequired,
-    //     resetGenres: PropTypes.func.isRequired,
-    //     onChange: PropTypes.func.isRequired
-
-    // }
   }
 }
 

@@ -1,45 +1,21 @@
 import React from "react";
-import AppContextHOC from "../../HOC/AppContextHOC";
 import { inject, observer } from "mobx-react";
 
 @inject(({ formStore }) => ({
-  loginValues: formStore.loginValues,
-  onChange: formStore.onChange,
-  handleBlur: formStore.handleBlur,
-  validateFields: formStore.validateFields,
-  onSubmit: formStore.onSubmit,
-  updateErrors: formStore.updateErrors,
-  submitting: formStore.submitting,
-  errors: formStore.errors
-
-  // formStore
+  formStore
 }))
 @observer
 class LoginForm extends React.Component {
-  onLogin = event => {
-    // const { updateUser, updateSessionId, toggleModal } = this.props;
-    event.preventDefault();
-    const errors = this.props.validateFields();
-    if (Object.keys(errors).length > 0) {
-      // this.props.loginValues.errors = errors;
-      this.props.updateErrors(errors);
-    } else {
-      // const callback = (user, session_id) => {
-      //   updateUser(user);
-      //   updateSessionId(session_id);
-      //   toggleModal();
-      // };
-      this.props.onSubmit();
-    }
-  };
-
   render() {
     const {
-      onChange,
-      loginValues,
-      handleBlur,
-      submitting,
-      errors
+      formStore: {
+        onChange,
+        loginValues,
+        handleBlur,
+        submitting,
+        errors,
+        onLogin
+      }
     } = this.props;
     return (
       <div className="form-login-container">
@@ -100,7 +76,7 @@ class LoginForm extends React.Component {
           <button
             type="submit"
             className="btn btn-lg btn-primary btn-block"
-            onClick={this.onLogin}
+            onClick={onLogin}
             disabled={submitting}
           >
             {submitting ? "Выполняется вход..." : "Вход"}
@@ -114,4 +90,4 @@ class LoginForm extends React.Component {
   }
 }
 
-export default AppContextHOC(LoginForm);
+export default LoginForm;

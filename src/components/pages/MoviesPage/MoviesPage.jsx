@@ -10,30 +10,7 @@ export const AppContext = React.createContext();
 }))
 @observer
 class MoviesPage extends React.Component {
-  constructor() {
-    super();
-
-    this.state = {
-      filters: {
-        // sort_by: "popularity.desc",
-        // primary_release_year: "2018",
-        with_genres: []
-      },
-      page: 1,
-      total_pages: ""
-    };
-  }
-
-  onChangePagination = ({ page, total_pages = this.state.total_pages }) => {
-    this.setState({
-      page,
-      total_pages
-    });
-  };
-
   render() {
-    const { filters, page, total_pages, user, session_id } = this.state;
-    const { moviesPageStore } = this.props;
     return (
       <div className="container">
         <div className="row mt-4">
@@ -41,25 +18,12 @@ class MoviesPage extends React.Component {
             <div className="card w-100">
               <div className="card-body">
                 <h3>Фильтры:</h3>
-                <Filters
-                  page={page}
-                  total_pages={total_pages}
-                  filters={filters}
-                  // onChangeFilters={moviesPageStore.onChangeFilters}
-                  onChangePagination={this.onChangePagination}
-                />
+                <Filters />
               </div>
             </div>
           </div>
           <div className="col-8">
-            <MoviesList
-              filters={filters}
-              page={page}
-              onChangePagination={this.onChangePagination}
-              session_id={session_id}
-              user={user}
-              toggleModal={this.toggleModal}
-            />
+            <MoviesList />
           </div>
         </div>
       </div>

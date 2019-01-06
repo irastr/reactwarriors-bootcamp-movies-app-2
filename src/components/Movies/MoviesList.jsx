@@ -1,8 +1,6 @@
 import React from "react";
 import MovieItem from "./MovieItem";
-import MoviesHOC from "./MoviesHOC";
 import Load from "../Loader/Load";
-import AppContextHOC from "../HOC/AppContextHOC";
 import { inject, observer } from "mobx-react";
 
 @inject(({ moviesPageStore }) => ({
@@ -10,10 +8,15 @@ import { inject, observer } from "mobx-react";
 }))
 @observer
 class MoviesList extends React.Component {
-  render() {
-    const { movies, user, session_id, toggleModal } = this.props;
+  componentDidMount() {
     const {
-      moviesPageStore: { preloader }
+      moviesPageStore: { getMovies }
+    } = this.props;
+    getMovies();
+  }
+  render() {
+    const {
+      moviesPageStore: { preloader, movies }
     } = this.props;
     return (
       <div className="row">
@@ -23,12 +26,7 @@ class MoviesList extends React.Component {
           movies.map(movie => {
             return (
               <div key={movie.id} className="col-6 mb-4">
-                <MovieItem
-                  item={movie}
-                  user={user}
-                  session_id={session_id}
-                  toggleModal={toggleModal}
-                />
+                <MovieItem item={movie} />
               </div>
             );
           })
@@ -43,4 +41,4 @@ class MoviesList extends React.Component {
   }
 }
 
-export default AppContextHOC(MoviesHOC(MoviesList));
+export default MoviesList;

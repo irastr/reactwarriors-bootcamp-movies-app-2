@@ -1,6 +1,4 @@
 import React from "react";
-import CallApi from "../../api/api";
-import AppContextHOC from "../HOC/AppContextHOC";
 import {
   UncontrolledDropdown,
   DropdownToggle,
@@ -24,21 +22,10 @@ class User extends React.Component {
     });
   }
 
-  // logOut = () => {
-  //   const { session_id, onLogOut } = this.props;
-
-  //   return CallApi.delete("/authentication/session", {
-  //     body: {
-  //       session_id
-  //     }
-  //   }).then(data => {
-  //     console.log(data);
-  //     onLogOut();
-  //   });
-  // };
-
   render() {
-    const { userStore } = this.props;
+    const {
+      userStore: { user, logOut }
+    } = this.props;
     return (
       <div>
         <UncontrolledDropdown>
@@ -48,12 +35,12 @@ class User extends React.Component {
               alt="user"
               className="rounded-circle"
               src={`https://secure.gravatar.com/avatar/${
-                userStore.user.avatar.gravatar.hash
+                user.avatar.gravatar.hash
               }.jpg?s=64"`}
             />
           </DropdownToggle>
           <DropdownMenu right>
-            <DropdownItem onClick={userStore.logOut}>Выход</DropdownItem>
+            <DropdownItem onClick={logOut}>Выход</DropdownItem>
           </DropdownMenu>
         </UncontrolledDropdown>
       </div>

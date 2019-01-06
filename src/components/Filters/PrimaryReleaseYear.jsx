@@ -35,14 +35,16 @@ class PrimaryReleaseYear extends React.PureComponent {
   };
 
   render() {
-    const { primary_release_year, onChangeFilters, options } = this.props;
-    const { moviesPageStore } = this.props;
+    const {
+      options,
+      moviesPageStore: { filters, onChangeFilters }
+    } = this.props;
     return (
       <UISelect
         id="primary_release_year"
         name="primary_release_year"
-        value={moviesPageStore.filters.primary_release_year}
-        onChange={moviesPageStore.onChangeFilters}
+        value={filters.primary_release_year}
+        onChange={onChangeFilters}
         labelText="Год релиза:"
       >
         {options.map(option => (

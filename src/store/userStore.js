@@ -68,7 +68,9 @@ class UserStore {
       }
     }).then(() => {
       this.clearUser();
-      // how to change this here ?
+      cookies.remove("session_id", {
+        path: "/"
+      });
       // favoriteMovies: [],
       // watchlistMovies: []
     });

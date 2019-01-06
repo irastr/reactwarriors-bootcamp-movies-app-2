@@ -9,16 +9,13 @@ import { inject, observer } from "mobx-react";
 @observer
 class LoginModal extends React.Component {
   render() {
+    const {
+      formStore: { showLoginModal, toggleModal }
+    } = this.props;
     return (
-      <Modal
-        isOpen={this.props.formStore.showLoginModal}
-        toggle={this.props.toggle}
-      >
+      <Modal isOpen={showLoginModal} toggle={toggleModal}>
         <ModalBody>
-          <LoginForm
-            updateSessionId={this.props.updateSessionId}
-            toggleModal={this.props.toggleModal}
-          />
+          <LoginForm />
         </ModalBody>
       </Modal>
     );

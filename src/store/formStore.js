@@ -74,6 +74,16 @@ class FormStore {
   };
 
   @action
+  onLogin = event => {
+    const errors = this.validateFields();
+    if (Object.keys(errors).length > 0) {
+      this.updateErrors(errors);
+    } else {
+      this.onSubmit();
+    }
+  };
+
+  @action
   onSubmit = callback => {
     let session_id;
     this.updateSubmitting(true);
@@ -104,15 +114,12 @@ class FormStore {
       })
       .then(user => {
         this.updateSubmitting(false);
-        // callback(user, session_id);
         userStore.updateAuth(user, session_id);
-        // userStore.updateSessionId(session_id);
         this.toggleModal();
       })
       .catch(error => {
         console.log("error", error);
         this.updateSubmitting(false);
-        // this.loginValues.errors.base = error.status_message;
         this.updateErrors({
           base: error.status_message
         });

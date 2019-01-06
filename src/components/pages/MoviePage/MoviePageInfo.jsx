@@ -1,6 +1,6 @@
 import React from "react";
-import FavoriteMoviePage from "./Icons/FavoriteMoviePage";
-import WatchListMoviePage from "./Icons/WatchListMoviePage";
+// import FavoriteMoviePage from "./Icons/FavoriteMoviePage";
+// import WatchListMoviePage from "./Icons/WatchListMoviePage";
 import AppContextHOC from "../../HOC/AppContextHOC";
 
 const MoviePageInfo = ({ item, user, session_id, toggleModal }) => {
@@ -31,20 +31,8 @@ const MoviePageInfo = ({ item, user, session_id, toggleModal }) => {
           <div className="col-md-8 col-12 " style={{ color: "#FDFDFD" }}>
             <h3 className="mb-3">{item.title}</h3>
             <div className="d-flex ">
-              <FavoriteMoviePage
-                session_id={session_id}
-                toggleModal={toggleModal}
-                item={item}
-                user={user}
-                access={true}
-              />
-              <WatchListMoviePage
-                session_id={session_id}
-                toggleModal={toggleModal}
-                item={item}
-                user={user}
-                access={true}
-              />
+              {/* <FavoriteMoviePage />
+              <WatchListMoviePage /> */}
             </div>
             <h4 className="mt-4">Описание фильма:</h4>
             <p>{item.overview}</p>

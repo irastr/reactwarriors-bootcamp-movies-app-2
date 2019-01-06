@@ -35,14 +35,16 @@ class SortBy extends React.Component {
   };
 
   render() {
-    const { sort_by, onChangeFilters, options } = this.props;
-    const { moviesPageStore } = this.props;
+    const {
+      options,
+      moviesPageStore: { filters, onChangeFilters }
+    } = this.props;
     return (
       <UISelect
         id="sort_by"
         name="sort_by"
-        value={moviesPageStore.filters.sort_by}
-        onChange={moviesPageStore.onChangeFilters}
+        value={filters.sort_by}
+        onChange={onChangeFilters}
         labelText="Сортировать по:"
       >
         {options.map(option => (

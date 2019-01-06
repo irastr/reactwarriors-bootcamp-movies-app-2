@@ -10,7 +10,10 @@ import { inject, observer } from "mobx-react";
 @observer
 class Header extends React.Component {
   render() {
-    const { user, toggleModal, userStore } = this.props;
+    const {
+      userStore: { isAuth },
+      formStore: { toggleModal }
+    } = this.props;
     return (
       <nav className="navbar navbar-dark bg-primary">
         <div className="container">
@@ -22,13 +25,13 @@ class Header extends React.Component {
               </Link>
             </li>
           </ul>
-          {userStore.isAuth ? (
+          {isAuth ? (
             <User />
           ) : (
             <button
               className="btn btn-success"
               type="button"
-              onClick={this.props.formStore.toggleModal}
+              onClick={toggleModal}
             >
               Login
             </button>
