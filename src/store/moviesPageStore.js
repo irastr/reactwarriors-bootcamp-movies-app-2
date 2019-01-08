@@ -113,7 +113,7 @@ class MoviesPageStore {
   };
 
   @action
-  getMovies = (filters = this.filters, page = this.page) => {
+  getMovies = () => {
     this.preloader = true;
     const { sort_by, primary_release_year, with_genres } = this.filters;
     const queryStringParams = {

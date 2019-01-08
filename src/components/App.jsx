@@ -32,9 +32,9 @@ class App extends React.Component {
 
   componentDidMount() {
     const {
-      userStore: { getUserFromCookies }
+      userStore: { getUser }
     } = this.props;
-    getUserFromCookies();
+    getUser();
   }
 
   getFavoritesWatchlist = () => {

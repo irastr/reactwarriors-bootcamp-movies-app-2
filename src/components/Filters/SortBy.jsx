@@ -9,10 +9,8 @@ import { inject, observer } from "mobx-react";
 @observer
 class SortBy extends React.Component {
   static propTypes = {
-    sort_by: PropTypes.string.isRequired,
-    onChangeFilters: PropTypes.func.isRequired
+    moviesPageStore: PropTypes.object.isRequired
   };
-
   static defaultProps = {
     options: [
       {

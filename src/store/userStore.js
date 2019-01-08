@@ -25,19 +25,6 @@ class UserStore {
     this.user = user;
   };
 
-  getUserFromCookies = () => {
-    const session_id = cookies.get("session_id");
-    if (session_id) {
-      CallApi.get("/account", {
-        params: {
-          session_id
-        }
-      }).then(user => {
-        this.updateAuth(user, session_id);
-      });
-    }
-  };
-
   // ??????
   @action
   getUser = () => {

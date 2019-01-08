@@ -2,8 +2,6 @@ import React from "react";
 import classNames from "classnames";
 import { inject, observer } from "mobx-react";
 
-export const AppContext = React.createContext();
-
 @inject(({ moviesPageStore }) => ({
   moviesPageStore
 }))

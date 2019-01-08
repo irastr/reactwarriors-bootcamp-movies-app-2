@@ -47,7 +47,7 @@ class FormStore {
     }
   };
 
-  validateFields = name => {
+  validateFields = () => {
     const errors = {};
     if (this.loginValues.username === "") {
       errors.username = "Поле не должно быть пустым";
@@ -68,7 +68,6 @@ class FormStore {
   handleBlur = event => {
     const errors = this.validateFields(event.target.name);
     if (Object.keys(errors).length > 0) {
-      // this.loginValues.errors = errors;
       this.updateErrors(errors);
     }
   };
@@ -84,7 +83,7 @@ class FormStore {
   };
 
   @action
-  onSubmit = callback => {
+  onSubmit = () => {
     let session_id;
     this.updateSubmitting(true);
     CallApi.get("/authentication/token/new")
